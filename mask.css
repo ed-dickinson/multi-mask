@@ -1,0 +1,53 @@
+.trace-face {background-color: silver;}
+.trace-forehead {background-color: lightgrey;}
+.trace-brows {background-color: DarkGray;}
+.trace-eyes {background-color: gainsboro;}
+.trace-nose {background-color: darkgray;}
+.trace-cheeks {background-color: silver;}
+.trace-mouth {background-color: lightgrey;}
+
+body {font: 16px 'Lucida Grande', 'Helvetica', 'Arial', sans-serif;
+}
+
+@font-face {  font-family: neolithic;  src: url(assets/Neolithic.ttf); }
+
+.title {font-family: neolithic; font-size: 3em; text-transform: uppercase;}
+.sub-title {font-family: neolithic; font-size: 2em; margin}
+
+input[type=range] {appearance: ;}
+
+.mask {height: 80em; width: calc(80em * 3/4);
+  background-color: papayawhip;
+  /* background-color: aqua; */
+  position: relative; }
+.mask-drawer {font-size: 4px;
+  /* height: 80em; width: calc(80em * 3/4);  */
+  background-color: papayawhip;
+  /* background-color: dodgerblue;  */
+  position: relative;}
+.mask-preview .mask {font-size: 4px;}
+
+.mask-preview, .mask-drawer, .maker {display: inline-block;}
+
+.mask-mould {display: none;}
+
+/* .cell[class$='-template'] {background-color: black;} */
+/* .face-template {background-color: black;} */
+
+.cell {width: 4em; height: 4em;
+  /* background-color: aqua;  */
+  position: absolute;
+  /* box-shadow: 0px 0px 1px black;  */
+  cursor: cell; }
+
+/* .cell-draw-receiver{border-radius: 50%; width: 75%; height:75%; background-color: white; opacity: 0; position: absolute;  left: 12.5%; top: 12.5%; } */
+.cell-draw-receiver{border-radius: 0%; width: 70.71%; height:70.71%; background-color: white; opacity: 0; position: absolute;  left: 14.64%; top: 14.64%; transform: rotate(45deg);}
+/* .cell.variation {background-color: lightblue;} */
+
+.drawn {background-color: black;}
+/* .face-template {background-color: black;} */
+
+.colour-buttons button {height: 2em; width: 2em; border: 0px solid black;}
+.colour-buttons button.selected-colour {height: 2.2em; width: 2em;}
+
+.colour-buttons {border: 4px solid black;}
