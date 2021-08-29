@@ -10,7 +10,7 @@ let currentFeature = undefined;
 
 const colours = ['black','saddlebrown','sienna','peru','wheat','white', 'dodgerblue', 'aqua','aquamarine','lightgreen','mediumseagreen', 'limegreen', 'gold','orange','orangered','crimson','palevioletred','plum',];
 
-const Cell = (dom, x, y, c) => {
+const Cell = (dom, x, y, c) => {//c is colour, d is last drawn colour, t is last templated colour
   const func = () => result;
   let d = undefined;
   let array = [];
@@ -21,7 +21,6 @@ const Cell = (dom, x, y, c) => {
     d = colourNo;
   }
   const colour = () => {
-
     dom.style.backgroundColor = colours[c];
   }
   return {dom, x, y, c, d, colour, changeColour, lastDrawnColour};
@@ -44,9 +43,19 @@ const Feature = (name, templates) => {
   })
   const clear = () => {
     document.querySelectorAll('.' + name + '-template').forEach(cell => {
-
+      // console.log(document.querySelector('[class$="-template"]'))
       cell.classList.remove(name+'-template');
-      if (!cell.classList.contains('drawn')) {
+      // console.log(cell.querySelector('[class$="-template"]'));
+      // cell.classList.forEach(cl => {console.log(cl)});
+      let hasOtherTemplate = undefined;
+      Array.from(cell.classList).forEach(cl => {
+        if(cl.toString().includes('template')) {
+          hasOtherTemplate = true;
+        }
+      });
+
+      if (hasOtherTemplate) {console.log(hasOtherTemplate);}
+      if ((!cell.classList.contains('drawn')) && !hasOtherTemplate) {
         cell.style.backgroundColor = '';
       }
 
@@ -76,10 +85,6 @@ const Feature = (name, templates) => {
   const restoreColour = () => {
     document.querySelectorAll('.drawn').forEach(cell => {
 
-      // cell.style.backgroundColor = cell.object.c;
-      // cell.object.changeColour(cell.object.c);
-      // cell.object.colour();
-      // console.log(cell.object);
       console.log(cell.classList);
       if (!cell.classList.contains(name+'-template')) {
         cell.object.changeColour(cell.object.d);
@@ -174,27 +179,31 @@ for (let j = 0; j < y; j++) {
     cell.children[0].addEventListener('mouseover', holdDraw);
     cell.addEventListener('mousedown', clickDraw);
     // cell.children[0].addEventListener('mousedown', clickDraw);
-    let trace = '';
-    if(i < 3 || j > 24 || i > 17 || j < 3) {//j is y, i is x
-      trace = 'face';
-    } else if(i < 4 && j > 22 || i > 16 && j < 4 || j > 22 && i > 16 || i < 4 && j < 4) {//j is y, i is x
-      trace = 'face';
-    } else if(j > 20) {
-      trace = 'forehead';
-    } else if(j > 17) {
-      trace = 'brows';
-    } else if(j > 8 && i < 12 && i > 8 && j < 17) {
-      trace = 'nose';
-    } else if(j > 8 && i < 13 && i > 7 && j < 14) {
-      trace = 'nose';
-    } else if(j > 11) {
-      trace = 'eyes';
-    } else if(j > 2 && j < 8 && i < 15 && i > 5) {
-      trace = 'mouth';
-    } else if(j > 3 && j < 11 && i < 18 && i > 2) {
-      trace = 'cheeks';
+    let haveTracing = false;
+    // haveTracing = true;
+    if (haveTracing) {
+      let trace = '';
+      if(i < 3 || j > 24 || i > 17 || j < 3) {//j is y, i is x
+        trace = 'face';
+      } else if(i < 4 && j > 22 || i > 16 && j < 4 || j > 22 && i > 16 || i < 4 && j < 4) {//j is y, i is x
+        trace = 'face';
+      } else if(j > 20) {
+        trace = 'forehead';
+      } else if(j > 17) {
+        trace = 'brows';
+      } else if(j > 8 && i < 12 && i > 8 && j < 17) {
+        trace = 'nose';
+      } else if(j > 8 && i < 13 && i > 7 && j < 14) {
+        trace = 'nose';
+      } else if(j > 11) {
+        trace = 'eyes';
+      } else if(j > 2 && j < 8 && i < 15 && i > 5) {
+        trace = 'mouth';
+      } else if(j > 3 && j < 11 && i < 18 && i > 2) {
+        trace = 'cheeks';
+      }
+      cell.classList.add('trace-' + trace);
     }
-    cell.classList.add('trace-' + trace);
   }
   cellArray[j] = arrayRow;
 }
