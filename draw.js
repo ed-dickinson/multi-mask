@@ -13,6 +13,7 @@ const colours = ['black','saddlebrown','sienna','peru','wheat','white', 'dodgerb
 const Cell = (dom, x, y, c) => {//c is colour, d is last drawn colour, t is last templated colour
   const func = () => result;
   let d = undefined;
+  let t = undefined;
   let array = [];
   const changeColour = (colourNo) => {
     c = colourNo;
@@ -54,7 +55,9 @@ const Feature = (name, templates) => {
         }
       });
 
-      if (hasOtherTemplate) {console.log(hasOtherTemplate);}
+      if (hasOtherTemplate) {
+        cell.style.backgroundColor = cell.object.t[0];
+      }
       if ((!cell.classList.contains('drawn')) && !hasOtherTemplate) {
         cell.style.backgroundColor = '';
       }
@@ -67,17 +70,33 @@ const Feature = (name, templates) => {
     clear();
     array.forEach(cell => {
       let cc = cellArray[cell[1]][cell[0]];
+      let holdingColour = currentColourNo;
       cc.classList.add(name+'-template');
       if (typeof cell[2]!='undefined') {
-        cc.object.changeColour(cell[2]);
-        cc.object.c=cell[2];
-        cc.object.colour();
-      } else {
-        cc.object.changeColour(currentColourNo);
-        cc.object.c=currentColourNo;
-        cc.object.colour();
+        holdingColour = cell[2];
+      //   cc.object.changeColour(cell[2]);
+      //   cc.object.c=cell[2];
+      //   cc.object.colour();
+      //
+      //   cc.object.t=[cell[2], name];
+      // } else {
+      //   cc.object.changeColour(currentColourNo);
+      //   cc.object.c=currentColourNo;
+      //   cc.object.colour();
+      //
+      //   cc.object.t=[currentColourNo, name];
       };
+      cc.object.changeColour(holdingColour);
+      cc.object.c=holdingColour;
+      cc.object.colour();
 
+      if (typeof cc.object.t!='undefined') {
+        if (cc.object.t[1]!=name) {
+
+        }
+      } else {
+        cc.object.t=[currentColour, name];
+      }
     })
     restoreColour();
     currentFeature = name;
