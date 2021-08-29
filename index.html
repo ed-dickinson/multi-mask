@@ -17,6 +17,7 @@
 </head>
 <body>
 
+  <div class='title-and-controls-container'>
   <div class='title-container'>
     <div class='title-inner'>
       <div class='title'>Mask Maker</div>
@@ -25,14 +26,14 @@
   </div>
 
 
-<div class='mask-drawer-controls'>
+<div class='mask-drawer-controls shown'>
 
-<div class='mask-drawer'>
+  <div class='mask-drawer'>
 
-</div>
+  </div>
 
 
-<div class='maker-controls'>
+  <div class='maker-controls'>
 
     <div class='colour-buttons'>
 
@@ -71,28 +72,36 @@
     <!-- <input name='result-colour' type='text-area' /> -->
 
 
+  </div>
+
+  <div class='maker-border vert' style='left: 100%;'></div>
+  <div class='maker-border vert' style='right: 100%;'></div>
+  <div class='maker-border hori' style='top: 100%;'></div>
+  <div class='maker-border hori' style='bottom: 100%;'></div>
+  <div class='maker-border-corner' style='left: -12px; top: -12px;' ></div>
+  <div class='maker-border-corner' style='left: -12px; bottom: -12px;'></div>
+  <div class='maker-border-corner' style='right: -12px; top: -12px;'></div>
+  <div class='maker-border-corner' style='right: -12px; bottom: -12px;'></div>
+
+  </div>
+
 </div>
 
-<div class='maker-border vert' style='left: 100%;'></div>
-<div class='maker-border vert' style='right: 100%;'></div>
-<div class='maker-border hori' style='top: 100%;'></div>
-<div class='maker-border hori' style='bottom: 100%;'></div>
-<div class='maker-border-corner' style='left: -12px; top: -12px;' ></div>
-<div class='maker-border-corner' style='left: -12px; bottom: -12px;'></div>
-<div class='maker-border-corner' style='right: -12px; top: -12px;'></div>
-<div class='maker-border-corner' style='right: -12px; bottom: -12px;'></div>
+  <div class='mask-display'></div>
 
-</div>
 
-<div class='mask-display'></div>
+
 
   <script src='features.js'></script>
   <script src='draw.js'></script>
   <!-- <script src='draw-ff.js'></script> -->
-  <!-- <script src='mask-display.js'></script> -->
+  <script src='mask-display.js'></script>
 
 <script>
-
+document.querySelector('.sub-title').addEventListener('click', () => {
+  console.log(1)
+  document.querySelector('.mask-drawer-controls').classList.toggle('shown');
+})
 
 </script>
 

@@ -1,26 +1,44 @@
-let randMasks = [];
-for (let i = 0; i < 12; i++) {
-  let mask = {user: 'test-user',
-              features : []}
-  document.querySelectorAll('.maker input').forEach(slider => {
-    mask.features.push(Math.floor(Math.random()*(parseInt(slider.max)+1)));
-  });
-  randMasks.push(mask);
-}
-
-// let randMaskObjs = [];
-
-
+// let randMasks = [];
+// for (let i = 0; i < 12; i++) {
+//   let mask = {user: 'test-user',
+//               features : []}
+//   document.querySelectorAll('.maker input').forEach(slider => {
+//     mask.features.push(Math.floor(Math.random()*(parseInt(slider.max)+1)));
+//   });
+//   randMasks.push(mask);
+// }
 
 let maskDisplay = document.querySelector('.mask-display');
+// let container_width = window.innerWidth;
+let container_width = document.querySelector('body').offsetWidth;
+// let container_width = maskDisplay;
+console.log(container_width);
+
+let across = (container_width - (container_width % 100)) / 100;
+
+console.log(across);
+console.log(maskDisplay);
 
 let maskSize = [90,120];
+maskSize[0] = (window.innerWidth/across)*0.9;
+maskSize[1] = maskSize[0] / (3/4);
+
+console.log(maskSize);
 
 
-maskSize[0] = ((window.innerWidth-16) / 10) - 10; //16 body margin, 10 margin
-maskSize[0] = Math.floor(maskSize[0]-2);
-maskSize[1] = maskSize[0] / 0.75;
-console.log(maskSize[0]%2);
+
+for (let i=0; i< 30; i++) {
+  let mask = document.createElement('span');
+  mask.classList.add('mask-in-display');
+  mask.style.width = maskSize[0] + 'px';
+  mask.style.left = maskSize[0]/0.9 * (i%across) + 'px';
+  mask.style.height = maskSize[1] + 'px';
+  mask.style.top = maskSize[1]*Math.floor(i/7)/0.93 + 'px';
+  mask.style.margin = maskSize[0]/18 + 'px';
+  // mask.style.backgroundColor = 'papayawhip';
+  maskDisplay.appendChild(mask);
+}
+
 
 const Mask = () => {
   let dom = undefined;

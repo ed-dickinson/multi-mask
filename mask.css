@@ -7,17 +7,27 @@
 .trace-mouth {background-color: lightgrey;}
 
 body {font: 16px 'Lucida Grande', 'Helvetica', 'Arial', sans-serif;
+position: static;
 }
 
 @font-face {  font-family: neolithic;  src: url(assets/Neolithic.ttf); }
 
-.title-container {margin: auto; max-width: 30em; text-align: center;}
+.title-container {margin: 50px auto 30px; max-width: 30em; text-align: center;}
 
 /* .title-container { margin: auto; display: block; position: static; width: auto;} */
 .title-inner {display: inline-block; margin: auto; position: relative; text-align: center; width:450px;}
 
-.title {font-family: neolithic; font-size: 3em; text-transform: uppercase;}
+.title {font-family: neolithic; font-size: 3em; text-transform: uppercase;
+  filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px 1px 0px white)
+  drop-shadow(1px -1px 0px white) drop-shadow(-1px -1px 0px white);
+}
 .sub-title {font-family: neolithic; font-size: 2em; cursor: pointer;}
+.sub-title:hover {
+  /* border-bottom: 3px solid seagreen; */
+  filter: drop-shadow(1px 1px 0px aquamarine) drop-shadow(-1px 1px 0px aquamarine)
+  drop-shadow(1px -1px 0px aquamarine) drop-shadow(-1px -1px 0px aquamarine);
+}
+
 div.feature-controls:not(button) {font-family: neolithic;
 font-family: 'lucida grande', 'lucida', 'courier new', monospace; font-weight: 700;}
 /* button {font-family: neolithic; text-transform: uppercase;} */
@@ -66,12 +76,18 @@ input[type=range] {appearance: ;}
 .colour-buttons {border: 4px solid black;}
 
 .mask-drawer-controls {
+  /* top: 20px; */
   position: relative;
   /* margin-left: 10px;  */
   padding: 0 5px;
   /* display: inline-block; */
   margin: auto;
   width: 30em;
+  transform: scaleY(0);
+  transition: transform 0.2s;
+}
+.mask-drawer-controls.shown {
+  transform: scaleY(1);
 }
 
 .maker-controls {
@@ -84,3 +100,12 @@ input[type=range] {appearance: ;}
 
 
 .maker-border-corner {width: 12px; height: 12px; background-color: black; position: absolute;}
+
+.title-and-controls-container {position: absolute; width: 100%; top: 0; left: 0;}
+
+/* .mask-display {
+  position: absolute; top: 8px;
+} */
+
+
+.mask-in-display {background-color: sienna; display: inline-block; position: absolute;}
