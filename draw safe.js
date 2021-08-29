@@ -50,15 +50,13 @@ const Feature = (name, templates) => {
       // cell.classList.forEach(cl => {console.log(cl)});
       let hasOtherTemplate = undefined;
       Array.from(cell.classList).forEach(cl => {
-        if(cl.toString().includes('-template')) {
+        if(cl.toString().includes('template')) {
           hasOtherTemplate = true;
         }
       });
 
       if (hasOtherTemplate) {
         cell.style.backgroundColor = cell.object.t[0];
-      } else {
-        cell.classList.remove('template');
       }
       if ((!cell.classList.contains('drawn')) && !hasOtherTemplate) {
         cell.style.backgroundColor = '';
@@ -74,7 +72,6 @@ const Feature = (name, templates) => {
       let cc = cellArray[cell[1]][cell[0]];
       let holdingColour = currentColourNo;
       cc.classList.add(name+'-template');
-      cc.classList.add('template');
       if (typeof cell[2]!='undefined') {
         holdingColour = cell[2];
       //   cc.object.changeColour(cell[2]);
@@ -137,9 +134,6 @@ function holdDraw() {
       if (cellDom.classList.contains('drawn')) {
         cellDom.classList.remove('drawn');
         cellDom.style.backgroundColor = '';
-      } else if (cellDom.classList.contains('template')) {
-        cellDom.classList.remove('template');
-        cellDom.style.backgroundColor = '';
       }
     } else {
       cellDom.classList.add('drawn');
@@ -168,10 +162,6 @@ function clickDraw() {
     erasing = false;
   } else if (cellDom.classList.contains('drawn')) {
     cellDom.classList.remove('drawn');
-    cellDom.style.backgroundColor = '';
-    erasing = true;
-  } else if (cellDom.classList.contains('template')) {
-    cellDom.classList.remove('template');
     cellDom.style.backgroundColor = '';
     erasing = true;
   } else {
@@ -267,8 +257,7 @@ function saveAll() {
   let result = document.querySelector('[name=result]');
   let array = [];
   result.value = '';
-  // document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
-  document.querySelectorAll(".drawn, .template").forEach(cell => {
+  document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
 
     if (typeof cell.object.c == 'undefined') {
       cell.object.c = 0;
@@ -284,8 +273,7 @@ function saveAllMono() {
   let result = document.querySelector('[name=result]');
   let array = [];
   result.value = '';
-  // document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
-  document.querySelectorAll(".drawn, .template").forEach(cell => {
+  document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
     console.log(cell.object);
     array.push({x:cell.object.x, y:cell.object.y});
     result.value+= '[' + cell.object.x + ',' + cell.object.y + '],';//arr
