@@ -12,21 +12,28 @@ position: static;
 
 @font-face {  font-family: neolithic;  src: url(assets/Neolithic.ttf); }
 
-.title-container {margin: 50px auto 30px; max-width: 30em; text-align: center;}
+.title-and-controls-container {position: absolute; width: 100%; top: 0; left: 0; }
 
-/* .title-container { margin: auto; display: block; position: static; width: auto;} */
+.title-container {margin: 45px auto 30px; max-width: 30em; text-align: center;}
+
 .title-inner {display: inline-block; margin: auto; position: relative; text-align: center; width:450px;}
 
-.title {font-family: neolithic; font-size: 3em; text-transform: uppercase;
-  filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px 1px 0px white)
-  drop-shadow(1px -1px 0px white) drop-shadow(-1px -1px 0px white);
-}
-.sub-title {font-family: neolithic; font-size: 2em; cursor: pointer;}
-.sub-title:hover {
+.title {font-family: neolithic; font-size: 3em; text-transform: uppercase;}
+
+.title {filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px 1px 0px white)
+  drop-shadow(1px -1px 0px white) drop-shadow(-1px -1px 0px white);}
+.title:hover {}
+.title span {font-size: 0.5em; position: absolute; top: 90%; left: 80%; display: none; text-transform: capitalize;}
+.title:hover span {display: inline-block;   }
+
+.sub-title {font-family: neolithic; font-size: 2em; }
+.sub-title:hover, .title div:hover, .title span:hover {
   /* border-bottom: 3px solid seagreen; */
   filter: drop-shadow(1px 1px 0px aquamarine) drop-shadow(-1px 1px 0px aquamarine)
   drop-shadow(1px -1px 0px aquamarine) drop-shadow(-1px -1px 0px aquamarine);
 }
+
+.title, .sub-title, .title span {cursor: pointer;}
 
 div.feature-controls:not(button) {font-family: neolithic;
 font-family: 'lucida grande', 'lucida', 'courier new', monospace; font-weight: 700;}
@@ -85,6 +92,8 @@ input[type=range] {appearance: ;}
   width: 30em;
   transform: scaleY(0);
   transition: transform 0.2s;
+  background-color: white;
+  border: 16px solid white;
 }
 .mask-drawer-controls.shown {
   transform: scaleY(1);
@@ -101,11 +110,18 @@ input[type=range] {appearance: ;}
 
 .maker-border-corner {width: 12px; height: 12px; background-color: black; position: absolute;}
 
-.title-and-controls-container {position: absolute; width: 100%; top: 0; left: 0;}
-
-/* .mask-display {
-  position: absolute; top: 8px;
-} */
 
 
-.mask-in-display {background-color: sienna; display: inline-block; position: absolute;}
+.mask-display {
+  position: absolute; top: 20px;
+  z-index: 1;
+}
+div.title-inner, .mask-drawer-controls {z-index: 2;}
+
+
+.mask-in-display {
+  background-color: sienna;
+  background-color: papayawhip; 
+  display: inline-block; position: absolute; }
+
+.display-cell {position: absolute;}
