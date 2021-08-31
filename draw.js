@@ -332,11 +332,29 @@ function fillFace() {
         cell.object.c = currentColourNo;
         cell.object.colour();
       }
-    
+
 
     })
   })
 
+}
+
+function importSaved() {
+  let box = parseInt(document.querySelector('[name=result]').value);
+
+  let map = mask_store[box].map;
+  console.log(map)
+  map.forEach(cell => {
+    console.log(cell)
+    console.log(cellArray[cell[1]][cell[0]])
+    let currentCell = cellArray[cell[1]][cell[0]];
+    cellArray[cell[1]][cell[0]].style.backgroundColour = colours[cell[2]];
+    currentCell.classList.add('drawn');
+    currentCell.object.changeColour(cell[2]);
+    currentCell.object.c = cell[2];
+    currentCell.object.colour();
+
+  })
 }
 
 
@@ -359,6 +377,7 @@ document.querySelector('[name=save]').addEventListener('click', save);
 document.querySelector('[name=save-colour]').addEventListener('click', saveColour);
 document.querySelector('[name=save-all]').addEventListener('click', saveAll);
 document.querySelector('[name=save-all-mono]').addEventListener('click', saveAllMono);
+document.querySelector('[name=import]').addEventListener('click', importSaved);
 document.querySelector('[name=fill-face]').addEventListener('click', fillFace);
 document.querySelector('[name=clear-all]').addEventListener('click', clearAll);
 document.querySelector('[name=clear-drawn]').addEventListener('click', clearDrawn);
