@@ -121,7 +121,7 @@ div.title-inner, .mask-drawer-controls {z-index: 2;}
 
 .mask-in-display {
   background-color: sienna;
-  background-color: papayawhip; 
+  background-color: papayawhip;
   display: inline-block; position: absolute; }
 
 .display-cell {position: absolute;}

@@ -14,7 +14,9 @@ let container_width = document.querySelector('body').offsetWidth;
 // let container_width = maskDisplay;
 console.log(container_width);
 
-let across = (container_width - (container_width % 100)) / 100;
+let max_mask_size = 95;
+
+let across = (container_width - (container_width % max_mask_size)) / max_mask_size;
 
 console.log(across);
 console.log(maskDisplay);

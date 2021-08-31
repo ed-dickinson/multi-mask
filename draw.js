@@ -155,7 +155,7 @@ function holdDraw() {
 
 function clickDraw() {
   //CHANGE SO IT ERASES TEMPLATE ON CLICK, currently doesnt have draw so doesnt
-
+if (event.buttons == 1) {
   let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
   if (cellDom.classList.contains('drawn') && cellDom.object.c != currentColourNo) {
     cellDom.object.changeColour(currentColourNo);
@@ -185,6 +185,7 @@ function clickDraw() {
 
     erasing = false;
   }
+}
 }
 
 for (let j = 0; j < y; j++) {
@@ -293,6 +294,51 @@ function saveAllMono() {
 
 }
 
+function fillFace() {
+  cellArray.forEach(row => {
+    //row
+    let onFaceLine = false;
+    let backOnFaceLine = false;
+    let insideFace = false;
+    let faceArray = [];
+
+    let outsideFace = true;
+    row.forEach(cell => {
+      if (cell.classList.contains('face-template')) {
+        faceArray.push(cell.object.x);
+      } else if (faceArray.length == 0) {
+        outsideFace = true;
+        cell.object.fill = false;
+      }
+      if (cell.object.x >= 21  - faceArray[0]) {
+        outsideFace = true;
+        cell.object.fill = false;
+      }
+    })
+
+    row.forEach(cell => {
+      let hasOtherTemplate = undefined;
+      Array.from(cell.classList).forEach(cl => {
+        if(cl.toString().includes('face-template')){
+          hasOtherTemplate = false;
+        } else if(cl.toString().includes('-template')) {
+          hasOtherTemplate = true;
+        }
+      });
+
+      if (cell.object.fill == false || cell.classList.contains('drawn') || hasOtherTemplate || cell.classList.contains('face-template')) {} else {
+        cell.classList.add('drawn');
+        cell.object.changeColour(currentColourNo);
+        cell.object.c = currentColourNo;
+        cell.object.colour();
+      }
+    
+
+    })
+  })
+
+}
+
 
 
 function clearDrawn() {
@@ -313,6 +359,7 @@ document.querySelector('[name=save]').addEventListener('click', save);
 document.querySelector('[name=save-colour]').addEventListener('click', saveColour);
 document.querySelector('[name=save-all]').addEventListener('click', saveAll);
 document.querySelector('[name=save-all-mono]').addEventListener('click', saveAllMono);
+document.querySelector('[name=fill-face]').addEventListener('click', fillFace);
 document.querySelector('[name=clear-all]').addEventListener('click', clearAll);
 document.querySelector('[name=clear-drawn]').addEventListener('click', clearDrawn);
 
