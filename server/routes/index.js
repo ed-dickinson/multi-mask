@@ -8,7 +8,12 @@ router.get('/', function(req, res, next) {
   res.json({mask: 'maker'});
 });
 
-router.post('/new', function(req, res, next) {
+router.get('/masks', function(req, res, next) {
+  // res.render('index', { title: 'Express' });
+  res.json({mask: 'look at all these masks!'});
+});
+
+router.post('/add', function(req, res, next) {
   const mask = new Mask({
     name: req.body.name,
     date: new Date(),

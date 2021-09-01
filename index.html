@@ -72,7 +72,9 @@
     <button name='save-all'>Save All</button>
     <button name='save-all-mono'>Save All (mono)</button><br />
     <input name='result' type='text-area' /><br />
-    <button name='import'>Import</button><br />
+    <button name='import'>Import</button>
+    <button name='mongo-save'>--> MongoDB</button><br />
+    <input name='name' type='text-area' /><br />
 
     <!-- <input name='result-colour' type='text-area' /> -->
 
@@ -97,12 +99,15 @@
 
 
 
+
   <script src='features.js'></script>
   <script src='draw.js'></script>
 
   <script src='mask-store.js'></script>
 
   <script src='mask-display.js'></script>
+
+  <script src='api.js'></script>
 
 <script>
 document.querySelector('.sub-title').addEventListener('click', () => {

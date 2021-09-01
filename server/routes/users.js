@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const Mask = require('../models/mask');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
