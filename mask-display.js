@@ -12,21 +12,21 @@ let maskDisplay = document.querySelector('.mask-display');
 // let container_width = window.innerWidth;
 let container_width = document.querySelector('body').offsetWidth;
 // let container_width = maskDisplay;
-console.log(container_width);
+// console.log(container_width);
 
 let max_mask_size = 95;
 
 let across = (container_width - (container_width % max_mask_size)) / max_mask_size;
 
-console.log(across);
-console.log(maskDisplay);
+// console.log(across);
+// console.log(maskDisplay);
 
 let maskSize = [90,120];
 maskSize[0] = (container_width/across)*0.9;
 maskSize[1] = maskSize[0] / (3/4);
 let rows = 8;
 
-console.log(maskSize);
+// console.log(maskSize);
 
 let title_space = (across%2==1) ? 3 : 4;
 for (let i=0; i< (rows*across); i++) {
@@ -47,24 +47,31 @@ for (let i=0; i< (rows*across); i++) {
 // let y = 28;
 let display_cell_size = maskSize[0] / x;//maskSize[1] / y
 
-mask_store.forEach(mask_in_store => {
-  let i = mask_store.indexOf(mask_in_store);
-  mask_in_store.map.forEach(item => {
-    let div = document.createElement('div');
-    div.classList.add('display-cell');
-    div.style.width = display_cell_size + 'px';
-    div.style.height = display_cell_size + 'px';
+function fillMasks(mask_store) {
+  mask_store.forEach(mask_in_store => {
+    let i = mask_store.indexOf(mask_in_store);
 
-    div.style.left = display_cell_size * item[0] + 'px';
-    div.style.bottom = display_cell_size * item[1] + 'px';
-    div.style.backgroundColor = colours[item[2]];
-    div.setAttribute('value',item);
-    // console.log(item)
-    displayArray[i].appendChild(div);
+    //for db
+    // let db_array = JSON.parse(mask_in_store.map);
+    // console.log(Array.from(mask_in_store.map))
+    mask_in_store.map.forEach(item => {
+      // console.log(item);
+      // item = JSON.parse(item);
+      let div = document.createElement('div');
+      div.classList.add('display-cell');
+      div.style.width = display_cell_size + 'px';
+      div.style.height = display_cell_size + 'px';
+
+      div.style.left = display_cell_size * item[0] + 'px';
+      div.style.bottom = display_cell_size * item[1] + 'px';
+      div.style.backgroundColor = colours[item[2]];
+      div.setAttribute('value',item);
+
+      displayArray[i].appendChild(div);
+    })
+    displayArray[i].style.backgroundColor = 'white';
   })
-  displayArray[i].style.backgroundColor = 'white';
-})
-
+}
 
 // const Mask = () => {
 //   let dom = undefined;
