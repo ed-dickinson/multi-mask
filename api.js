@@ -1,9 +1,21 @@
 const directory = 'http://localhost:3000/';
 
-async function saveToDb(map, name) {
+async function countMasks() {
+  let path = 'count';
+  const response = await fetch(directory + path, {mode: 'cors'});
+  const result = await response.json();
+  console.log(result);
+  return result;
+
+}
+
+// let fetched_mask_count = countMasks();
+
+async function saveToDb(map, name, no) {
   let data = {
     map: map,
-    name: name
+    name: name,
+    no: 2
     // joined: new Date()
   };
 
@@ -16,16 +28,17 @@ async function saveToDb(map, name) {
     body: JSON.stringify(data),
   })
   .then(response => {
-    response.json();
+    // response.json();
     console.log(response)
     if (response.ok) {
-      responseBox.innerHTML = 'New mask added!';
+      document.querySelector('[name=name]').value += ' added!';
     } else {
       responseBox.innerHTML = response.statusText;
     }
+    return response.blob();
   })
   .then(data => {
-    console.log('Success:', data);
+    console.log('Success:', name, ' added.');
   })
   .catch((error) => {
     console.error('Error:', error);
