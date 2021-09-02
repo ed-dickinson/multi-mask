@@ -1,6 +1,7 @@
 const admin = true;
 
 const update_button =  document.querySelector('[name=update]');
+const delete_button =  document.querySelector('[name=delete]');
 
 let loaded_mask = undefined;
 // let loaded_masks_dom = undefined;
@@ -34,6 +35,7 @@ function loadMask(mask, dom) {
   document.querySelector('[name=name]').value = mask.name;
   loaded_mask = mask;
   update_button.disabled = false;
+  delete_button.disabled = false;
 }
 
 function gatherArray() {
@@ -88,6 +90,7 @@ async function updateInDb(map, name) {
 
 function updateInDom(array) {
   loaded_mask.dom.innerHTML = '';
+  // displayArray.length;
   mapToCells(array, loaded_mask.dom);
 };
 
@@ -99,7 +102,51 @@ function update() {
   toggleControls('off');
 };
 
+async function deleteInDb(name) {
+
+  fetch(directory + 'masks/delete/' + loaded_mask._id, {
+    method: 'POST', // or 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    mode: 'cors',
+    // body: JSON.stringify(data),
+  })
+  .then(response => {
+    console.log(response)
+    if (response.ok) {
+      updateMessage(name +' deleted!');
+    } else {
+      responseBox.innerHTML = response.statusText;
+    }
+    return response.blob();
+  })
+  .then(data => {
+    console.log('Success:', data, name, ' deleted.');
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+function deleteInDom() {
+  loaded_mask.dom.innerHTML = '';
+  // displayArray.length;
+  // mapToCells(array, loaded_mask.dom);
+};
+
+function deleteMask(){
+  let name = document.querySelector('[name=name]').value;
+  deleteInDb(name);
+  deleteInDom();
+  mask_count--;
+  toggleControls('off');
+};
+
+
 update_button.addEventListener('click', ()=>{update()});
+
+delete_button.addEventListener('click', ()=>{deleteMask()});
 
 // function addMaskLinks(){
 //   mask_store.forEach(mask_in_store => {

@@ -7,6 +7,7 @@
 //   });
 //   randMasks.push(mask);
 // }
+let mask_count = 0;
 let displayArray = [];
 let maskDisplay = document.querySelector('.mask-display');
 // let container_width = window.innerWidth;
@@ -85,6 +86,9 @@ function fillMasks(mask_store) {
     // })
 
     displayArray[i].style.backgroundColor = 'white';
+
+    mask_count = i + 1;
+    console.log(mask_count);
 
     if (admin) {
       displayArray[i].setAttribute('value', mask_in_store._id);

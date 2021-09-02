@@ -56,34 +56,39 @@ router.get('/count', function(req, res, next) {
 
 router.post('/add', function(req, res, next) {
   // let no = Mask.countDocuments();
+  let id = 'none';
   const mask = new Mask({
     // no: req.body.no,
     name: req.body.name,
     date: new Date(),
     map: req.body.map,
-  }).save(err => {
-    if (err) return next(err)
   });
-  return res.json({message:'added'});
+  mask.save(err => {
+    if (err) return next(err)
+
+  });
+  return res.json({message:'mask created', mask: 'mask', mask : mask});
+  // return res.json({message:'mask created', mask});
 });
 
 router.post('/masks/update/:id', function(req, res, next) {
   // let no = Mask.countDocuments();
   Mask.findByIdAndUpdate(req.params.id, {name:req.body.name,map:req.body.map}, function(err,result) {
         if (err) {return next(err);}
-        return res.json({message:'updated'});
+        return res.json({message:'mask updated'});
       });
+});
 
-
-  // const mask = new Mask({
-  //   // no: req.body.no,
-  //   name: req.body.name,
-  //   date: new Date(),
-  //   map: req.body.map,
-  // }).save(err => {
-  //   if (err) return next(err)
-  // });
-
+router.post('/masks/delete/:id', function(req, res, next) {
+  // let no = Mask.countDocuments();
+  // Mask.findByIdAndUpdate(req.params.id, {name:req.body.name,map:req.body.map}, function(err,result) {
+  //       if (err) {return next(err);}
+  //       return res.json({message:'updated'});
+  //     });
+  Mask.findByIdAndRemove(req.params.id, function deleteMask(err) {
+      if (err) {return next(err);}
+      return res.json({message:'mask deleted.'});
+    });
 });
 
 module.exports = router;

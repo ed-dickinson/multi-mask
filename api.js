@@ -1,5 +1,7 @@
 const directory = 'http://localhost:3000/';
 
+let created_mask = undefined;
+
 async function countMasks() {
   let path = 'count';
   const response = await fetch(directory + path, {mode: 'cors'});
@@ -41,20 +43,34 @@ async function saveToDb(map, name) {
   })
   .then(response => {
     // response.json();
-    console.log(response)
+
     if (response.ok) {
       document.querySelector('[name=name]').value += ' added!';
+      response.json().then(json => {created_mask = json.mask;});
     } else {
       responseBox.innerHTML = response.statusText;
     }
-    return response.blob();
+    // return response.blob();
+
+
   })
   .then(data => {
-    console.log('Success:', name, ' added.');
+    console.log('Success:', data, ' added.');
   })
   .catch((error) => {
     console.error('Error:', error);
   });
+}
+
+function addToDom(array) {
+
+  // loaded_mask.dom.innerHTML = '';
+  let dom =  displayArray[mask_count];
+  mapToCells(array, dom);
+  dom.style.backgroundColor = 'white';
+  dom.addEventListener('click', () => {loadMask(created_mask,dom)});
+  dom.style.cursor = 'pointer';
+  mask_count++;
 }
 
 function sendToMongo() {
@@ -77,6 +93,8 @@ function sendToMongo() {
   })
 
   saveToDb(array, name.value);
+  addToDom(array);
+  toggleControls('off');
 
 }
 
