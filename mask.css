@@ -125,3 +125,12 @@ div.title-inner, .mask-drawer-controls {z-index: 2;}
   display: inline-block; position: absolute; }
 
 .display-cell {position: absolute;}
+
+
+
+
+
+
+/* ADMIN */
+
+#admin {position: fixed; bottom: 10px; left: 10px; z-index: 999;}

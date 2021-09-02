@@ -74,7 +74,8 @@
     <input name='result' type='text-area' /><br />
     <button name='import'>Import</button>
     <button name='mongo-save'>--> MongoDB</button><br />
-    <input name='name' type='text-area' /><br />
+    name:<input name='name' type='text-area' /><br />
+    <output name='message' value='hello'></output>
 
     <!-- <input name='result-colour' type='text-area' /> -->
 
@@ -96,7 +97,9 @@
 
   <div class='mask-display'></div>
 
-
+<div id='admin'>
+  <button name='update' disabled>Update</button>
+</div>
 
 
 
@@ -108,11 +111,25 @@
   <script src='mask-display.js'></script>
 
   <script src='api.js'></script>
+  <script src='api-admin.js'></script>
 
 <script>
+function toggleControls(on) {
+  let controls = document.querySelector('.mask-drawer-controls').classList;
+  if (on == 'on') {
+    if (!controls.contains('shown')) {  controls.add('shown');    }
+
+  } else if (on == 'off') {
+    if (controls.contains('shown')) {   controls.remove('shown'); }
+  } else {
+    controls.toggle('shown');
+  }
+
+}
+
 document.querySelector('.sub-title').addEventListener('click', () => {
-  console.log(1)
-  document.querySelector('.mask-drawer-controls').classList.toggle('shown');
+  toggleControls();
+
 })
 
 </script>

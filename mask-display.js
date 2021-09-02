@@ -43,6 +43,23 @@ for (let i=0; i< (rows*across); i++) {
   maskDisplay.appendChild(mask);
 }
 
+function mapToCells(map, display) {
+  map.forEach(item => {
+
+    let div = document.createElement('div');
+    div.classList.add('display-cell');
+    div.style.width = display_cell_size + 'px';
+    div.style.height = display_cell_size + 'px';
+
+    div.style.left = display_cell_size * item[0] + 'px';
+    div.style.bottom = display_cell_size * item[1] + 'px';
+    div.style.backgroundColor = colours[item[2]];
+    div.setAttribute('value',item);
+
+    display.appendChild(div);
+  })
+}
+
 // let x = 21;
 // let y = 28;
 let display_cell_size = maskSize[0] / x;//maskSize[1] / y
@@ -50,26 +67,30 @@ let display_cell_size = maskSize[0] / x;//maskSize[1] / y
 function fillMasks(mask_store) {
   mask_store.forEach(mask_in_store => {
     let i = mask_store.indexOf(mask_in_store);
+    let display = displayArray[i];
+    mapToCells(mask_in_store.map, displayArray[i]);
+    // mask_in_store.map.forEach(item => {
+    //
+    //   let div = document.createElement('div');
+    //   div.classList.add('display-cell');
+    //   div.style.width = display_cell_size + 'px';
+    //   div.style.height = display_cell_size + 'px';
+    //
+    //   div.style.left = display_cell_size * item[0] + 'px';
+    //   div.style.bottom = display_cell_size * item[1] + 'px';
+    //   div.style.backgroundColor = colours[item[2]];
+    //   div.setAttribute('value',item);
+    //
+    //   displayArray[i].appendChild(div);
+    // })
 
-    //for db
-    // let db_array = JSON.parse(mask_in_store.map);
-    // console.log(Array.from(mask_in_store.map))
-    mask_in_store.map.forEach(item => {
-      // console.log(item);
-      // item = JSON.parse(item);
-      let div = document.createElement('div');
-      div.classList.add('display-cell');
-      div.style.width = display_cell_size + 'px';
-      div.style.height = display_cell_size + 'px';
-
-      div.style.left = display_cell_size * item[0] + 'px';
-      div.style.bottom = display_cell_size * item[1] + 'px';
-      div.style.backgroundColor = colours[item[2]];
-      div.setAttribute('value',item);
-
-      displayArray[i].appendChild(div);
-    })
     displayArray[i].style.backgroundColor = 'white';
+
+    if (admin) {
+      displayArray[i].setAttribute('value', mask_in_store._id);
+      displayArray[i].addEventListener('click', () => {loadMask(mask_in_store,displayArray[i])});//admin
+      displayArray[i].style.cursor = 'pointer';
+    }
   })
 }
 

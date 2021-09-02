@@ -13,7 +13,7 @@ async function fetchMasks() {
   let path = 'masks/all';
   const response = await fetch(directory + path, {mode: 'cors'});
   const result = await response.json();
-  console.log(result);
+  // console.log(result);
   // return result;
   fillMasks(result);
 
@@ -23,11 +23,11 @@ fetchMasks();
 
 // let fetched_mask_count = countMasks();
 
-async function saveToDb(map, name, no) {
+async function saveToDb(map, name) {
   let data = {
     map: map,
     name: name,
-    no: 2
+    // no: 2
     // joined: new Date()
   };
 
@@ -69,6 +69,7 @@ function sendToMongo() {
     if (typeof cell.object.c == 'undefined') {
       cell.object.c = 0;
     }
+    console.log(cell.object)
     // console.log(cell.object.c);
     // array.push({x:cell.object.x, y:cell.object.y, c:cell.object.c});
     array.push([cell.object.x, cell.object.y, cell.object.c]);

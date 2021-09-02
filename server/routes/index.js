@@ -1,3 +1,5 @@
+//do a get with colXrow, then when scroll to bottom, fetch another colXrow
+
 var express = require('express');
 var router = express.Router();
 const Mask = require('../models/mask');
@@ -55,7 +57,7 @@ router.get('/count', function(req, res, next) {
 router.post('/add', function(req, res, next) {
   // let no = Mask.countDocuments();
   const mask = new Mask({
-    no: req.body.no,
+    // no: req.body.no,
     name: req.body.name,
     date: new Date(),
     map: req.body.map,
@@ -63,6 +65,25 @@ router.post('/add', function(req, res, next) {
     if (err) return next(err)
   });
   return res.json({message:'added'});
+});
+
+router.post('/masks/update/:id', function(req, res, next) {
+  // let no = Mask.countDocuments();
+  Mask.findByIdAndUpdate(req.params.id, {name:req.body.name,map:req.body.map}, function(err,result) {
+        if (err) {return next(err);}
+        return res.json({message:'updated'});
+      });
+
+
+  // const mask = new Mask({
+  //   // no: req.body.no,
+  //   name: req.body.name,
+  //   date: new Date(),
+  //   map: req.body.map,
+  // }).save(err => {
+  //   if (err) return next(err)
+  // });
+
 });
 
 module.exports = router;

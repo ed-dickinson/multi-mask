@@ -274,7 +274,7 @@ function saveAll() {
     if (typeof cell.object.c == 'undefined') {
       cell.object.c = 0;
     }
-    console.log(cell.object.c);
+    // console.log(cell.object.c);
     array.push({x:cell.object.x, y:cell.object.y, c:cell.object.c});
     result.value+= '[' + cell.object.x + ',' + cell.object.y + ',' + cell.object.c + '],';//arr
   })
@@ -331,6 +331,7 @@ function fillFace() {
         cell.object.changeColour(currentColourNo);
         cell.object.c = currentColourNo;
         cell.object.colour();
+        console.log(cell.object)
       }
 
 
