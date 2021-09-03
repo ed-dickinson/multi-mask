@@ -11,8 +11,7 @@ position: static;
 }
 
 @font-face {  font-family: neolithic;  src: url(assets/Neolithic.ttf); }
-/* @font-face {font-family: dogica; src: url(assets/dogica.ttf);} */
-/* @font-face {font-family: pixellari; src: url(assets/Pixellari.ttf);} */
+
 @font-face {font-family: pixel; src: url(assets/pixelmix.ttf);}
 
 .title-and-controls-container {position: absolute; width: 100%; top: 0; left: 0; }
