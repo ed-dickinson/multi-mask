@@ -11,34 +11,53 @@ position: static;
 }
 
 @font-face {  font-family: neolithic;  src: url(assets/Neolithic.ttf); }
+/* @font-face {font-family: dogica; src: url(assets/dogica.ttf);} */
+/* @font-face {font-family: pixellari; src: url(assets/Pixellari.ttf);} */
+@font-face {font-family: pixel; src: url(assets/pixelmix.ttf);}
 
 .title-and-controls-container {position: absolute; width: 100%; top: 0; left: 0; }
 
-.title-container {margin: 45px auto 30px; max-width: 30em; text-align: center;}
+.title-container {margin: 35px auto 30px; max-width: 30em; text-align: center; }
 
 .title-inner {display: inline-block; margin: auto; position: relative; text-align: center; width:450px;}
 
-.title {font-family: neolithic; font-size: 3em; text-transform: uppercase;}
+.title {font-family: neolithic; font-size: 3.0em; text-transform: uppercase;}
 
-.title {filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px 1px 0px white)
-  drop-shadow(1px -1px 0px white) drop-shadow(-1px -1px 0px white);}
+
+.title, .sub-title {filter: drop-shadow(2px 2px 0px mediumseagreen) drop-shadow(-2px 2px 0px gold)
+  drop-shadow(2px -2px 0px orange) drop-shadow(-2px -2px 0px orangered);}
+.sub-title {filter: drop-shadow(2px 2px 0px aquamarine) drop-shadow(-2px 2px 0px limegreen)
+    drop-shadow(2px -2px 0px mediumseagreen) drop-shadow(-2px -2px 0px gold);}
+.sub-title:hover {filter: drop-shadow(3px 3px 0px aquamarine) drop-shadow(-3px 3px 0px limegreen)
+        drop-shadow(3px -3px 0px mediumseagreen) drop-shadow(-3px -3px 0px gold);}
+
+.title:hover {filter: drop-shadow(3px 3px 0px mediumseagreen) drop-shadow(-3px 3px 0px gold)
+    drop-shadow(3px -3px 0px orange) drop-shadow(-3px -3px 0px orangered);}
+
+
+.title div, .sub-title div, .title span {filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px 2px 0px white)
+      drop-shadow(2px -2px 0px white) drop-shadow(-2px -2px 0px white);}
 .title:hover {}
 .title span {font-size: 0.5em; position: absolute; top: 90%; left: 80%; display: none; text-transform: capitalize;}
 .title:hover span {display: inline-block;   }
 
 .sub-title {font-family: neolithic; font-size: 2em; }
-.sub-title:hover, .title div:hover, .title span:hover {
-  /* border-bottom: 3px solid seagreen; */
-  filter: drop-shadow(1px 1px 0px aquamarine) drop-shadow(-1px 1px 0px aquamarine)
-  drop-shadow(1px -1px 0px aquamarine) drop-shadow(-1px -1px 0px aquamarine);
+/* .sub-title, .title div, .title span { */
+  .sub-title {
+
 }
+
+
+.close-controls {font-family: neolithic; font-size: 2em; cursor:pointer; position: absolute; top: 5px; right: 5px;}
 
 .title, .sub-title, .title span {cursor: pointer;}
 
 div.feature-controls:not(button) {font-family: neolithic;
-font-family: 'lucida grande', 'lucida', 'courier new', monospace; font-weight: 700;}
+font-family: 'lucida grande', 'lucida', 'courier new', monospace; font-weight: 700;
+font-family: pixel;}
 /* button {font-family: neolithic; text-transform: uppercase;} */
-div.feature-controls button {font-family: neolithic;}
+.feature-controls {}
+div.feature-controls button {font-family: neolithic; background-color: white; border: 0; cursor: pointer;}
 div.feature-controls button span {display: inline-block; }
 div.feature-controls button:nth-of-type(1) span {transform: rotate(90deg) scale(2); }
 div.feature-controls button:nth-of-type(2) span {transform: rotate(270deg) scale(2); }
@@ -53,6 +72,7 @@ input[type=range] {appearance: ;}
 .mask-drawer {font-size: 4px;
   /* height: 80em; width: calc(80em * 3/4);  */
   background-color: papayawhip;
+  background-color: lightgrey;
   /* background-color: dodgerblue;  */
   position: relative;}
 .mask-preview .mask {font-size: 4px;}
@@ -82,22 +102,30 @@ input[type=range] {appearance: ;}
 
 .colour-buttons {border: 4px solid black;}
 
-.mask-drawer-controls {
+.drawer-container {margin: auto;
+  width: 30em;position: relative;}
+
+.mask-drawer-controls, .info-drawer {
   /* top: 20px; */
-  position: relative;
+  position: absolute;
   /* margin-left: 10px;  */
   padding: 0 5px;
   /* display: inline-block; */
-  margin: auto;
-  width: 30em;
+  
   transform: scaleY(0);
   transition: transform 0.2s;
   background-color: white;
   border: 16px solid white;
+  filter: drop-shadow(4px 4px 0px palevioletred) drop-shadow(-4px 4px 0px mediumpurple)
+      drop-shadow(4px -4px 0px dodgerblue) drop-shadow(-4px -4px 0px aquamarine);
+  font-family: pixel;
+  font-size: 0.8em;
 }
-.mask-drawer-controls.shown {
+.mask-drawer-controls.shown, .info-drawer.shown {
   transform: scaleY(1);
 }
+
+.info-drawer {z-index: 30; }
 
 .maker-controls {
   position: relative;
@@ -109,7 +137,6 @@ input[type=range] {appearance: ;}
 
 
 .maker-border-corner {width: 12px; height: 12px; background-color: black; position: absolute;}
-
 
 
 .mask-display {

@@ -29,7 +29,7 @@ let rows = 8;
 
 // console.log(maskSize);
 
-let title_space = (across%2==1) ? 3 : 4;
+let title_space = (across%2==1) ? 5 : 4;
 for (let i=0; i< (rows*across); i++) {
   if (i == (across-title_space)/2) {i+= title_space;}
   let mask = document.createElement('span');
@@ -59,13 +59,29 @@ function mapToCells(map, display) {
 
     display.appendChild(div);
   })
+  display.map = map; // to fix reload update issue?
 }
 
 // let x = 21;
 // let y = 28;
 let display_cell_size = maskSize[0] / x;//maskSize[1] / y
 
-function fillMasks(mask_store) {
+function fillMasks(mask_store, random) {
+  if (random) {
+    // for (let i = 0; i < mask_store.length; i++){
+    //   let random = Math.floor(Math.random()*mask_store.length);
+    //   let removed = mask_store.shift(); //method 1
+    //   mask_store.splice(random,0,removed);
+    //   // let removed = mask_store.slice(random,1); //method 2
+    //   // mask_store.unshift(removed);
+    // }
+    for (let i = mask_store.length -1; i > 0; i--) {//fisher yates shuffle
+      let j = Math.floor(Math.random() * i)
+      let k = mask_store[i]
+      mask_store[i] = mask_store[j]
+      mask_store[j] = k
+    }
+  }
   mask_store.forEach(mask_in_store => {
     let i = mask_store.indexOf(mask_in_store);
     let display = displayArray[i];
@@ -88,11 +104,11 @@ function fillMasks(mask_store) {
     displayArray[i].style.backgroundColor = 'white';
 
     mask_count = i + 1;
-    console.log(mask_count);
 
     if (admin) {
       displayArray[i].setAttribute('value', mask_in_store._id);
-      displayArray[i].addEventListener('click', () => {loadMask(mask_in_store,displayArray[i])});//admin
+      // displayArray[i].addEventListener('click', () => {loadMask(mask_in_store,displayArray[i])});//admin
+      displayArray[i].addEventListener('click', ()=> {loadMask(mask_in_store,displayArray[i])});//admin
       displayArray[i].style.cursor = 'pointer';
     }
   })

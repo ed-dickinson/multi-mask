@@ -10,14 +10,21 @@ function updateMessage(message) {
   document.querySelector('[name=message]').value = message;
 }
 
+// gets passed mongo object and js dom initially
 function loadMask(mask, dom) {
   // let dom = event.srcElement.parentNode;
   // let maskID = dom.getAttribute('value');
+
   mask.dom = dom;
+
   // console.log(mask)
   // let box = parseInt(document.querySelector('[name=result]').value);
   clearAll();
   let map = mask.map;
+  if(mask.dom.reloaded==true){
+    console.log(true);
+    map = dom.map;
+  }
   // console.log(map)
   map.forEach(cell => {
     // console.log(cell)
@@ -43,7 +50,7 @@ function gatherArray() {
 
   let array = [];
   // document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
-  document.querySelectorAll(".drawn, .template").forEach(cell => {
+  document.querySelectorAll(".drawn, .template, .fill").forEach(cell => {
 
     // if (typeof cell.object.c == 'undefined') {
     //   cell.object.c = 0;
@@ -92,6 +99,9 @@ function updateInDom(array) {
   loaded_mask.dom.innerHTML = '';
   // displayArray.length;
   mapToCells(array, loaded_mask.dom);
+  loaded_mask.dom.reloaded = true;
+  // loaded_mask.dom.removeEventListener('click', fu;
+  // loaded_mask;
 };
 
 function update() {

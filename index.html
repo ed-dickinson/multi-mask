@@ -20,13 +20,26 @@
   <div class='title-and-controls-container'>
   <div class='title-container'>
     <div class='title-inner'>
-      <div class='title'><div>
+      <div class='title'>
+        <div>
         Mask Maker
-      </div><span class='title-info'>(info)</span></div>
-      <span class='sub-title'>Make your Mask</span>
+      </div>
+      <!-- <span class='title-info'>(info)</span> -->
+    </div>
+      <div class='sub-title'><div>
+        Make your Mask
+      </div></div>
     </div>
   </div>
+  <div class='drawer-container'>
 
+  <div class='info-drawer'>
+    Welcome to Mask Maker (2.0).
+    <br><br>
+    This is a friendly site where you can create a mask using the handy editor, and then add it to the wall of masks.
+
+    You can even add a message with it if you like (tbc).
+  </div>
 
 <div class='mask-drawer-controls shown'>
 
@@ -66,8 +79,11 @@
     <button name='clear-drawn'>clear drawn</button>
     <button name='grid'>grid</button><br />
     <button name='save'>Save</button>
-    <button name='save-colour'>Save (Colour)</button>
+    <button name='save-colour'>Save (Colour)</button><br />
     <button name='fill-face'>Fill</button>
+    <button name='fill-tool'>Fill Tool</button>
+    <button name='draw-tool'>Draw Tool</button>
+    <button name='big-tool'>Big Tool</button>
     <br />
     <button name='save-all'>Save All</button>
     <button name='save-all-mono'>Save All (mono)</button><br />
@@ -82,16 +98,22 @@
 
   </div>
 
-  <div class='maker-border vert' style='left: 100%;'></div>
+  <!-- <div class='maker-border vert' style='left: 100%;'></div>
   <div class='maker-border vert' style='right: 100%;'></div>
   <div class='maker-border hori' style='top: 100%;'></div>
   <div class='maker-border hori' style='bottom: 100%;'></div>
   <div class='maker-border-corner' style='left: -12px; top: -12px;' ></div>
   <div class='maker-border-corner' style='left: -12px; bottom: -12px;'></div>
   <div class='maker-border-corner' style='right: -12px; top: -12px;'></div>
-  <div class='maker-border-corner' style='right: -12px; bottom: -12px;'></div>
+  <div class='maker-border-corner' style='right: -12px; bottom: -12px;'></div> -->
 
+  <div class='close-controls'>
+    x
   </div>
+  </div>
+</div>
+
+  </div></div></div></div>
 
 </div>
 
@@ -117,20 +139,42 @@
 <script>
 function toggleControls(on) {
   let controls = document.querySelector('.mask-drawer-controls').classList;
+  let info = document.querySelector('.info-drawer').classList;
   if (on == 'on') {
     if (!controls.contains('shown')) {  controls.add('shown');    }
-
   } else if (on == 'off') {
     if (controls.contains('shown')) {   controls.remove('shown'); }
   } else {
     controls.toggle('shown');
   }
+  if (controls.contains('shown')) {info.remove('shown');}
+}
 
+function toggleInfo(on) {
+  let info = document.querySelector('.info-drawer').classList;
+  
+  if (on == 'on') {
+    if (!info.contains('shown')) {  info.add('shown');    }
+  } else if (on == 'off') {
+    if (info.contains('shown')) {   info.remove('shown'); }
+  } else {
+    info.toggle('shown');
+  }
 }
 
 document.querySelector('.sub-title').addEventListener('click', () => {
   toggleControls();
 
+})
+
+document.querySelector('.close-controls').addEventListener('click', () => {
+  toggleControls('off');
+
+})
+
+document.querySelector('.title').addEventListener('click', () => {
+  toggleInfo();
+  toggleControls('off');
 })
 
 </script>

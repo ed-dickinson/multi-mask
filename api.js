@@ -17,7 +17,7 @@ async function fetchMasks() {
   const result = await response.json();
   // console.log(result);
   // return result;
-  fillMasks(result);
+  fillMasks(result, true); //true is randomise
 
 }
 
@@ -80,7 +80,7 @@ function sendToMongo() {
   let array = [];
   input.value = '';
   // document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
-  document.querySelectorAll(".drawn, .template").forEach(cell => {
+  document.querySelectorAll(".drawn, .template, .fill").forEach(cell => {
 
     if (typeof cell.object.c == 'undefined') {
       cell.object.c = 0;
