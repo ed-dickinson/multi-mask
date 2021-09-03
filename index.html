@@ -54,7 +54,7 @@
 
     </div>
 
-    <div class='feature-controls face'>
+    <!-- <div class='feature-controls face'>
       <button class='dec'><span>v</span></button><button class='inc'><span>v</span></button><button class='clear'><span>x</span></button>Face<br>
     </div>
     <div class='feature-controls forehead'>
@@ -74,25 +74,35 @@
     </div>
     <div class='feature-controls mouth'>
       <button class='dec'><span>v</span></button><button class='inc'><span>v</span></button><button class='clear'><span>x</span></button>Mouth<br>
-    </div>
-    <button name='clear-all'>clear all</button>
-    <button name='clear-drawn'>clear drawn</button>
-    <button name='grid'>grid</button><br />
-    <button name='save'>Save</button>
-    <button name='save-colour'>Save (Colour)</button><br />
-    <button name='fill-face'>Fill</button>
-    <button name='fill-tool'>Fill Tool</button>
-    <button name='draw-tool'>Draw Tool</button>
-    <button name='big-tool'>Big Tool</button>
-    <br />
-    <button name='save-all'>Save All</button>
-    <button name='save-all-mono'>Save All (mono)</button><br />
-    <input name='result' type='text-area' /><br />
-    <button name='import'>Import</button>
-    <button name='mongo-save'>--> MongoDB</button><br />
-    name:<input name='name' type='text-area' /><br />
-    <output name='message' value='hello'></output>
+    </div> -->
 
+    <div class='control-buttons'>
+
+      
+      <!-- <button name='save'>Save</button>
+      <button name='save-colour'>Save (Colour)</button><br /> -->
+      Tool Size:<br>
+      <button name='tool-size-down'>-</button>
+      <output name='tool-size-display' value='1'>1</output>
+      <button name='tool-size-up'>+</button><br>
+      <!-- <button name='fill-face'>Fill</button> -->
+      <!-- <button name='fill-tool'>Fill Tool</button><br> -->
+      <button name='draw-tool'>Draw</button>
+      <!-- <button name='big-tool'>Big Tool</button> -->
+      <button name='erase-tool'>Erase</button>
+      <br />
+      <button name='clear-all'>clear all</button>
+      <!-- <button name='clear-drawn'>clear drawn</button> -->
+      <button name='grid'>grid</button><br />
+      <!-- <button name='save-all'>Save All</button>
+      <button name='save-all-mono'>Save All (mono)</button><br /> -->
+      <!-- <input name='result' type='text-area' /><br /> -->
+      <!-- <button name='import'>Import</button> -->
+      <button name='mongo-save'>--> MongoDB</button><br />
+      name:<input name='name' type='text-area' /><br />
+      <output name='message' value='hello'>howdy</output>
+
+    </div>
     <!-- <input name='result-colour' type='text-area' /> -->
 
 
@@ -107,9 +117,9 @@
   <div class='maker-border-corner' style='right: -12px; top: -12px;'></div>
   <div class='maker-border-corner' style='right: -12px; bottom: -12px;'></div> -->
 
-  <div class='close-controls'>
+  <button class='close-controls'>
     x
-  </div>
+  </button>
   </div>
 </div>
 

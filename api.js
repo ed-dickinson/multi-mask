@@ -78,7 +78,7 @@ function sendToMongo() {
   let input = document.querySelector('[name=result]');
   let name = document.querySelector('[name=name]');
   let array = [];
-  input.value = '';
+  // input.value = '';
   // document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
   document.querySelectorAll(".drawn, .template, .fill").forEach(cell => {
 
@@ -89,7 +89,7 @@ function sendToMongo() {
     // console.log(cell.object.c);
     // array.push({x:cell.object.x, y:cell.object.y, c:cell.object.c});
     array.push([cell.object.x, cell.object.y, cell.object.c]);
-    input.value+= '[' + cell.object.x + ',' + cell.object.y + ',' + cell.object.c + '],';//arr
+    // input.value+= '[' + cell.object.x + ',' + cell.object.y + ',' + cell.object.c + '],';//arr
   })
 
   saveToDb(array, name.value);

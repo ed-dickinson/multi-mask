@@ -9,6 +9,7 @@ let cellArray = [];
 let currentFeature = undefined;
 let lastTemplate = undefined;
 let tool = 'draw';
+let tool_size = 1;
 let currentColourNo = 0;
 
 const colours = ['black','saddlebrown','sienna','peru','wheat','white', 'dodgerblue', 'aqua','aquamarine','lightgreen','mediumseagreen', 'limegreen', 'gold','orange','orangered','crimson','palevioletred','mediumpurple',];//darkorchid?
@@ -31,294 +32,171 @@ const Cell = (dom, x, y, c) => {//c is colour, d is last drawn colour, t is last
   return {dom, x, y, c, d, colour, changeColour, lastDrawnColour};
 }
 
-const Feature = (name, templates) => {
-  let i = -1;
-  const dom = document.querySelector('.' + name);
-  dom.children[0].addEventListener('click',() => {
-    i <= 0 ? i = templates.length-1 : i--;
-    set(templates[i])
-  })
-  dom.children[1].addEventListener('click',() => {
-    i==templates.length-1 ? i=0 : i++;
-    set(templates[i])
-    //what was covered by the new feature overlapping another one turns black
-  })
-  dom.children[2].addEventListener('click',() => {
-    clear();
-  })
-  const clear = () => {
-    let lastTemplateArray = document.querySelectorAll('.' + name + '-template');
-    document.querySelectorAll('.' + name + '-template').forEach(cell => {
-      // console.log(document.querySelector('[class$="-template"]'))
-      cell.classList.remove(name+'-template');
-      // console.log(cell.querySelector('[class$="-template"]'));
-      // cell.classList.forEach(cl => {console.log(cl)});
-      let hasOtherTemplate = undefined;
-      Array.from(cell.classList).forEach(cl => {
-        if(cl.toString().includes('-template')) {
-          hasOtherTemplate = true;
-        }
-      });
-
-      if (hasOtherTemplate) {
-        cell.style.backgroundColor = cell.object.t[0];
-      } else {
-        cell.classList.remove('template');
-      }
-      if ((!cell.classList.contains('drawn')) && !hasOtherTemplate) {
-        cell.style.backgroundColor = '';
-      }
-
-    })
-    restoreColour(lastTemplateArray);//theres one in set as well?
-
-  }
-  const set = (array) => {
-    clear();
-    array.forEach(cell => {
-      let cc = cellArray[cell[1]][cell[0]];
-      let holdingColour = currentColourNo;
-      cc.classList.add(name+'-template');
-      cc.classList.add('template');
-      if (typeof cell[2]!='undefined') {
-        holdingColour = cell[2];
-      //   cc.object.changeColour(cell[2]);
-      //   cc.object.c=cell[2];
-      //   cc.object.colour();
-      //
-      //   cc.object.t=[cell[2], name];
-      // } else {
-      //   cc.object.changeColour(currentColourNo);
-      //   cc.object.c=currentColourNo;
-      //   cc.object.colour();
-      //
-      //   cc.object.t=[currentColourNo, name];
-      };
-      cc.object.changeColour(holdingColour);
-      cc.object.c=holdingColour;
-      cc.object.colour();
-
-      if (typeof cc.object.t!='undefined') {
-        if (cc.object.t[1]!=name) {
-
-        }
-      } else {
-        cc.object.t=[currentColour, name];
-      }
-    })
-    // restoreColour(name);// theres one in clear as well?
-    lastTemplate = name; //must be after restore and clear
-    currentFeature = name;
-  }
-  const restoreColour = (lastTemplateArray) => {
-    // console.log(name);
-    // let tempArray = undefined;
-    // if (typeof lastTemplate == undefined) {tempArray =  document.querySelectorAll('.drawn, .fill')} else {tempArray = lastTemplate};
-    if(lastTemplate== name) {
-    // query selector all might work better, because last template only grabs the most recent one, which breaks when you cycle through a few templates then switch feature
-    document.querySelectorAll('.drawn, .fill').forEach(cell => {
-    // lastTemplateArray.forEach(cell => {
-        if (!cell.classList.contains(name+'-template')) {
-          console.log(cell.object.c, cell.object.d)
-          cell.object.changeColour(cell.object.d);
-          cell.object.c = cell.object.d;
-          cell.object.colour();
-
-
-        }
-      })
-    }
-    // if (lastTemplate != undefined) {
-    //   // console.log(lastTemplate)
-    //   lastTemplate.forEach(cc => {
-    //   // tempArray.forEach(cell => {
-    //     let cell = cellArray[cc[1]][cc[0]];
-    //     // console.log(cell.classList);
-    //     if (!cell.classList.contains(name+'-template')) {
-    //       cell.object.changeColour(cell.object.d);
-    //       cell.object.c = cell.object.d;
-    //       cell.object.colour();
-    //     }
-    //   })
-    // }
-  }
-  return {set,dom,clear}
-}
-
-let face = Feature('face', faces);
-let forehead = Feature('forehead', foreheads);
-let eyebrows = Feature('eyebrows', brows);
-let eyes = Feature('eyes', eyeTemps);
-let nose = Feature('nose', noseTemps);
-let cheeks = Feature('cheeks', cheekTemps);
-let mouth = Feature('mouth', mouthTemps);
-let features_array = [face, forehead, eyebrows, eyes, nose, cheeks, mouth];
 
 mask_drawer.style.width = x * cell_size + 'em';
 mask_drawer.style.height = y * cell_size + 'em';
 
-function holdDraw() {
-  if (event.buttons == 1) {
-    let cellDom = event.srcElement.parentNode;
-    if (erasing) {
-      if (cellDom.classList.contains('drawn')) {
-        cellDom.classList.remove('drawn');
-        cellDom.style.backgroundColor = '';
-      } else if (cellDom.classList.contains('template')) {
-        cellDom.classList.remove('template');
-        cellDom.style.backgroundColor = '';
-      }
-    } else {
-      cellDom.classList.add('drawn');
-      cellDom.object.changeColour(currentColourNo);
-      cellDom.object.c = currentColourNo;
-      cellDom.object.colour();
-
-      cellDom.object.lastDrawnColour(currentColourNo);
-      cellDom.object.d = currentColourNo;
-    }
-  }
-}
 
 function hold() {
-  holdDraw();
-}
-
-function clickDraw() {
-  //CHANGE SO IT ERASES TEMPLATE ON CLICK, currently doesnt have draw so doesnt
   if (event.buttons == 1) {
-    let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
-    if (cellDom.classList.contains('drawn') && cellDom.object.c != currentColourNo) {
-      cellDom.object.changeColour(currentColourNo);
-      cellDom.object.c = currentColourNo;
-      cellDom.object.colour();
-
-      cellDom.object.lastDrawnColour(currentColourNo);
-      cellDom.object.d = currentColourNo;
-
-      erasing = false;
-    } else if (cellDom.classList.contains('drawn')) {
-      cellDom.classList.remove('drawn');
-      cellDom.style.backgroundColor = '';
-      erasing = true;
-    } else if (cellDom.classList.contains('template')) {
-      cellDom.classList.remove('template');
-      cellDom.style.backgroundColor = '';
-      erasing = true;
-    } else if (cellDom.classList.contains('fill')) {
-      cellDom.classList.remove('fill');
-      cellDom.style.backgroundColor = '';
-      erasing = true;
+    let cellDom = event.srcElement.parentNode;
+    if (tool == 'erase') {
+      let drawArray = expandCell(cellDom);
+      eraseCells(drawArray);
+      
     } else {
-      cellDom.classList.add('drawn');
-      cellDom.object.changeColour(currentColourNo);
-      cellDom.object.c = currentColourNo;
-      cellDom.object.colour();
+      let drawArray = expandCell(cellDom);
+      drawCells(drawArray);
 
-      cellDom.object.lastDrawnColour(currentColourNo);
-      cellDom.object.d = currentColourNo;
-
-      erasing = false;
     }
   }
 }
 
-function fill() {
-  let noFillSelector = '.drawn, .template';
-  let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
-  // let old_colour = cellDom.object.c;
-  let old_colour = getComputedStyle(cellDom).backgroundColor;
-  let fill_colour = currentColourNo;
-  let maxY = 27; let maxX = 20;
-  let direction = 0; //0 up 1 right 2 down, 3 left
-  let done = false;
-  let colourWord = colours[currentColourNo];
-  cellDom.object.changeColour(fill_colour);
-  cellDom.object.colour();
-  cellDom.style.backgroundColor = colourWord;
-  cellDom.classList.add('fill');
 
-  // console.log('fill', cellDom.object, fill_colour, old_colour);
-  function cell(direction) {
-    switch(direction) {
-      case 0:
-        return cellArray[cellDom.object.y+1][cellDom.object.x];
-        break;
-      case 1:
-        return cellArray[cellDom.object.y][cellDom.object.x+1];
-        break;
-      case 2:
-        return cellArray[cellDom.object.y-1][cellDom.object.x];
-        break;
-      case 3:
-        return cellArray[cellDom.object.y][cellDom.object.x-1];
-    }
+function expandCell(cellDom) {
+  let cellX = cellDom.object.x;
+  let cellY = cellDom.object.y;
+  let drawArray = [cellDom];
+  let extra_cells = [];
+
+  switch(tool_size) {
+    case 1: extra_cells = []; break;
+    case 2: extra_cells = [[-1,0],[0,1],[1,0],[0,-1]]; break;
+    case 3: extra_cells = [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]]; break;
+    case 4: extra_cells = [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1], [-2,0],[0,2],[2,0],[0,-2]]; break;
+    case 5: extra_cells = [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1], [-2,0],[0,2],[2,0],[0,-2], [-2,1],[1,2],[2,1],[1,-2],[-2,-1],[-1,2],[2,-1],[-1,-2],];
   }
-  function move() {
-    // console.log(99)
-    let fill_and_move = false;
-    direction == 0 ? direction+=3 : direction--;
-    let tries = 0;
-    let loops = 0;
-    while (fill_and_move == false && tries < 4 && loops < (5)) {
-
-      let target_cell = cell(direction);
-      // target_cell.
-      console.log(target_cell);
-      let target_bg = (target_cell == undefined) ? 'window' : getComputedStyle(target_cell).backgroundColor;
-      if (target_bg == old_colour){
-        // if (target_cell.object.c == old_colour){
-        fill_and_move = true;
-        target_cell.object.c == fill_colour;
-        target_cell.classList.add('fill');
-        target_cell.object.changeColour(fill_colour);
-        cellDom = target_cell;
-        cellDom.object.changeColour(fill_colour);
-        cellDom.object.c == fill_colour;
-        cellDom.object.colour(fill_colour);
-        cellDom.style.backgroundColor = colourWord;
-        cellDom.classList.add('fill');
-        console.log(cellDom.object, target_cell.object, direction, 'fill and move');
-      } else if (tries==4) {
-        done = true;
-        console.log('tries=4');
-      } else {
-        fill_and_move = false;
-        direction == 3 ? direction-=3 : direction++;
-        tries++;
-        console.log(direction, 'try again');
-      }
-      loops++;
-
-
+  
+  extra_cells.forEach(coord => {
+    let newX = cellX+coord[0]; let newY = cellY+coord[1];
+    if (newX < 21 && newX >= 0 && newY < 27 && newY >= 0) {
+      drawArray.push(cellArray[newY][newX]);
     }
-    if (tries == 4) {
-      done = true;
+  })
+
+  return drawArray;
+}
+
+function drawCells(draw_array) {
+  draw_array.forEach(cellDom => {
+    if (!cellDom.classList.contains('drawn')) {
+      cellDom.classList.add('drawn');
     }
-  }
-  loops = 0;
+    cellDom.object.changeColour(currentColourNo);
+    cellDom.object.c = currentColourNo;
+    cellDom.object.colour();
+  })
+}
 
-  // for (let i = 0; i < 4; i++) {
-  //   direction = i;
-    while (done == false && loops < (21*27)) {
-      console.log('2nd while');
-      move();
-      loops++;
+function eraseCells(draw_array) {
+  draw_array.forEach(cellDom => {
+    if (cellDom.classList.contains('drawn')) {
+      cellDom.classList.remove('drawn');
     }
-  // }
-
-  //directions
-
-
+    cellDom.style.backgroundColor = '';
+    cellDom.object.changeColour(undefined);
+    cellDom.object.c = undefined;
+    cellDom.object.colour();
+  })
 }
 
 function click() {
-  if (tool == 'fill') {
-    fill();
+  let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
+  if (tool == 'erase') {
+    let drawArray = expandCell(cellDom);
+    eraseCells(drawArray);
   } else {
-    clickDraw();
+    let drawArray = expandCell(cellDom);
+    drawCells(drawArray);
   }
 }
+
+
+// function fill() {
+//   let noFillSelector = '.drawn, .template';
+//   let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
+//   // let old_colour = cellDom.object.c;
+//   let old_colour = getComputedStyle(cellDom).backgroundColor;
+//   let fill_colour = currentColourNo;
+//   let maxY = 27; let maxX = 20;
+//   let direction = 0; //0 up 1 right 2 down, 3 left
+//   let done = false;
+//   let colourWord = colours[currentColourNo];
+//   cellDom.object.changeColour(fill_colour);
+//   cellDom.object.colour();
+//   cellDom.style.backgroundColor = colourWord;
+//   cellDom.classList.add('fill');
+
+//   // console.log('fill', cellDom.object, fill_colour, old_colour);
+//   function cell(direction) {
+//     switch(direction) {
+//       case 0:
+//         return cellArray[cellDom.object.y+1][cellDom.object.x];
+//         break;
+//       case 1:
+//         return cellArray[cellDom.object.y][cellDom.object.x+1];
+//         break;
+//       case 2:
+//         return cellArray[cellDom.object.y-1][cellDom.object.x];
+//         break;
+//       case 3:
+//         return cellArray[cellDom.object.y][cellDom.object.x-1];
+//     }
+//   }
+//   function move() {
+//     // console.log(99)
+//     let fill_and_move = false;
+//     direction == 0 ? direction+=3 : direction--;
+//     let tries = 0;
+//     let loops = 0;
+//     while (fill_and_move == false && tries < 4 && loops < (5)) {
+
+//       let target_cell = cell(direction);
+//       // target_cell.
+//       console.log(target_cell);
+//       let target_bg = (target_cell == undefined) ? 'window' : getComputedStyle(target_cell).backgroundColor;
+//       if (target_bg == old_colour){
+//         // if (target_cell.object.c == old_colour){
+//         fill_and_move = true;
+//         target_cell.object.c == fill_colour;
+//         target_cell.classList.add('fill');
+//         target_cell.object.changeColour(fill_colour);
+//         cellDom = target_cell;
+//         cellDom.object.changeColour(fill_colour);
+//         cellDom.object.c == fill_colour;
+//         cellDom.object.colour(fill_colour);
+//         cellDom.style.backgroundColor = colourWord;
+//         cellDom.classList.add('fill');
+//         console.log(cellDom.object, target_cell.object, direction, 'fill and move');
+//       } else if (tries==4) {
+//         done = true;
+//         console.log('tries=4');
+//       } else {
+//         fill_and_move = false;
+//         direction == 3 ? direction-=3 : direction++;
+//         tries++;
+//         console.log(direction, 'try again');
+//       }
+//       loops++;
+
+
+//     }
+//     if (tries == 4) {
+//       done = true;
+//     }
+//   }
+//   loops = 0;
+
+//   // for (let i = 0; i < 4; i++) {
+//   //   direction = i;
+//     while (done == false && loops < (21*27)) {
+//       console.log('2nd while');
+//       move();
+//       loops++;
+//     }
+//   // }
+//   //directions
+// }
 
 for (let j = 0; j < y; j++) {
   let arrayRow = [];
@@ -505,22 +383,30 @@ function clearDrawn() {
 
 function clearAll() {
   clearDrawn();
-  features_array.forEach(feature => {
-    feature.clear();
-  })
+  // features_array.forEach(feature => {
+  //   feature.clear();
+  // })
 }
 
-document.querySelector('[name=save]').addEventListener('click', save);
-document.querySelector('[name=save-colour]').addEventListener('click', saveColour);
-document.querySelector('[name=save-all]').addEventListener('click', saveAll);
-document.querySelector('[name=save-all-mono]').addEventListener('click', saveAllMono);
-document.querySelector('[name=import]').addEventListener('click', importSaved);
-document.querySelector('[name=fill-face]').addEventListener('click', fillFace);
+// document.querySelector('[name=save]').addEventListener('click', save);
+// document.querySelector('[name=save-colour]').addEventListener('click', saveColour);
+// document.querySelector('[name=save-all]').addEventListener('click', saveAll);
+// document.querySelector('[name=save-all-mono]').addEventListener('click', saveAllMono);
+// document.querySelector('[name=import]').addEventListener('click', importSaved);
+// document.querySelector('[name=fill-face]').addEventListener('click', fillFace);
+function toolSizeDisplayUpdate(){document.querySelector('[name=tool-size-display').value=tool_size;}
+document.querySelector('[name=tool-size-up]').addEventListener('click', ()=>{
+  if (tool_size < 5) {tool_size++; toolSizeDisplayUpdate();}
+});
+document.querySelector('[name=tool-size-down]').addEventListener('click', ()=>{
+  if (tool_size > 1) {tool_size--; toolSizeDisplayUpdate();}
+});
 document.querySelector('[name=clear-all]').addEventListener('click', clearAll);
-document.querySelector('[name=clear-drawn]').addEventListener('click', clearDrawn);
-document.querySelector('[name=fill-tool]').addEventListener('click', () => {tool = 'fill';});
+// document.querySelector('[name=clear-drawn]').addEventListener('click', clearDrawn);
+// document.querySelector('[name=fill-tool]').addEventListener('click', () => {tool = 'fill';});
 document.querySelector('[name=draw-tool]').addEventListener('click', () => {tool = 'draw';});
-document.querySelector('[name=big-tool]').addEventListener('click', () => {tool = 'big';});
+// document.querySelector('[name=big-tool]').addEventListener('click', () => {tool = 'big';});
+document.querySelector('[name=erase-tool]').addEventListener('click', () => {tool = 'erase';});
 
 let cellGridsOn = false;
 function gridToggle() {
@@ -567,5 +453,5 @@ colours.forEach(colour => {
   // if ((colours.indexOf(colour)+1) % 5 == 0) {
   //   // colourButtonCont.innerHTML += '<br>';
   // }
-  colourButtonCont.style.width = (6 * sub.clientWidth) + 'px';
+  colourButtonCont.style.width = (6 * sub.clientWidth) + (6*6) + 'px';
 })
