@@ -12,8 +12,8 @@ let tool = 'draw';
 let tool_size = 1;
 let currentColourNo = 0;
 
-const colours = ['black','saddlebrown','sienna','peru','wheat','white', 'dodgerblue', 'aqua','aquamarine','lightgreen','mediumseagreen', 'limegreen', 'gold','orange','orangered','crimson','palevioletred','mediumpurple',];//darkorchid?
-
+const colours = ['black','saddlebrown','chocolate','sandybrown','wheat','white', 'dodgerblue', 'aqua','aquamarine','lightgreen','mediumseagreen', 'limegreen', 'gold','orange','orangered','crimson','palevioletred','mediumpurple',];//darkorchid?
+//peru   // chocolate','sandybrown' or 'sienna','tan'
 const Cell = (dom, x, y, c) => {//c is colour, d is last drawn colour, t is last templated colour
   const func = () => result;
   let d = undefined;
@@ -388,25 +388,54 @@ function clearAll() {
   // })
 }
 
-// document.querySelector('[name=save]').addEventListener('click', save);
-// document.querySelector('[name=save-colour]').addEventListener('click', saveColour);
-// document.querySelector('[name=save-all]').addEventListener('click', saveAll);
-// document.querySelector('[name=save-all-mono]').addEventListener('click', saveAllMono);
-// document.querySelector('[name=import]').addEventListener('click', importSaved);
-// document.querySelector('[name=fill-face]').addEventListener('click', fillFace);
-function toolSizeDisplayUpdate(){document.querySelector('[name=tool-size-display').value=tool_size;}
-document.querySelector('[name=tool-size-up]').addEventListener('click', ()=>{
-  if (tool_size < 5) {tool_size++; toolSizeDisplayUpdate();}
+
+// function toolSizeDisplayUpdate(){document.querySelector('[name=tool-size-display').value=tool_size;}
+// document.querySelector('[name=tool-size-up]').addEventListener('click', ()=>{
+//   if (tool_size < 5) {tool_size++; toolSizeDisplayUpdate();}
+// });
+// document.querySelector('[name=tool-size-down]').addEventListener('click', ()=>{
+//   if (tool_size > 1) {tool_size--; toolSizeDisplayUpdate();}
+// });
+
+function toolSizeUpdate(){
+  
+  tool_buttons.forEach(button => {
+    button.classList.remove('selected');
+  })
+  // event.target.classList.add('selected');
+  tool_buttons[tool_size-1].classList.add('selected');
+}
+let tool_buttons = document.querySelectorAll('[name=tool-size]');
+tool_buttons.forEach(button => {
+  button.addEventListener('click', ()=>{
+    tool_size=parseInt(event.target.value);
+    toolSizeUpdate();
+  })
 });
-document.querySelector('[name=tool-size-down]').addEventListener('click', ()=>{
-  if (tool_size > 1) {tool_size--; toolSizeDisplayUpdate();}
-});
+tool_buttons[tool_size-1].classList.add('selected');
+
+const draw_button = document.querySelector('[name=draw-tool]');
+const erase_button = document.querySelector('[name=erase-tool]');
+
+function eraseTool() {
+  tool = 'erase';
+  draw_button.classList.remove('selected');
+  erase_button.classList.add('selected');
+}
+
+function drawTool() {
+  tool = 'draw';
+  erase_button.classList.remove('selected');
+  draw_button.classList.add('selected');
+}
+
 document.querySelector('[name=clear-all]').addEventListener('click', clearAll);
-// document.querySelector('[name=clear-drawn]').addEventListener('click', clearDrawn);
-// document.querySelector('[name=fill-tool]').addEventListener('click', () => {tool = 'fill';});
-document.querySelector('[name=draw-tool]').addEventListener('click', () => {tool = 'draw';});
-// document.querySelector('[name=big-tool]').addEventListener('click', () => {tool = 'big';});
-document.querySelector('[name=erase-tool]').addEventListener('click', () => {tool = 'erase';});
+draw_button.addEventListener('click', () => {
+  drawTool();
+});
+erase_button.addEventListener('click', () => {
+  eraseTool();
+});
 
 let cellGridsOn = false;
 function gridToggle() {
@@ -416,11 +445,13 @@ function gridToggle() {
       cell.style.boxShadow = '';
     })
     cellGridsOn = false;
+    event.target.classList.remove('selected');
   } else {
     cells.forEach(cell => {
       cell.style.boxShadow = '0px 0px 1px black';
     })
     cellGridsOn = true;
+    event.target.classList.add('selected');
   }
 
 
@@ -440,18 +471,57 @@ function colourSelect() {
   // event.target.classList.add('selected-colour');
   currentColourNo = Array.from(colourButtonCont.children).indexOf(event.target);
   currentColour = colours[currentColourNo];
-  colourButtonCont.style.borderColor = currentColour;
-
+  // colourButtonCont.style.borderColor = currentColour;
+  colour_buttons.forEach(button => {
+    button.classList.remove('selected');
+  })
+  colour_buttons[currentColourNo].classList.add('selected');
 }
 
+const colour_buttons = [];
+
 colours.forEach(colour => {
+  
+
   let sub = document.createElement('button');
 
   sub.style.backgroundColor = colour;
   colourButtonCont.appendChild(sub);
   sub.addEventListener('click', colourSelect);
+  colour_buttons.push(sub);
+
   // if ((colours.indexOf(colour)+1) % 5 == 0) {
   //   // colourButtonCont.innerHTML += '<br>';
   // }
   colourButtonCont.style.width = (6 * sub.clientWidth) + (6*6) + 'px';
 })
+
+colour_buttons[currentColourNo].classList.add('selected');
+
+function drawRestore(){
+  drawTool();
+  document.removeEventListener("keyup", drawRestore);
+}
+let holding_erase = false;
+document.addEventListener("keyup", ()=>{holding_erase=false;});
+
+document.addEventListener("keydown", event => {
+  if (event.isComposing || event.keyCode === 229) {
+    return;
+  } else if (event.code == 'KeyE' || event.keyCode == 69) {
+    eraseTool();
+    holding_erase = true;
+    setTimeout(function(){
+      if (holding_erase == true) {
+        document.addEventListener("keyup", drawRestore);
+      }
+     }, 300);12
+  } else if (event.code == 'KeyD' || event.keyCode == 68) {
+    drawTool();
+  } else if (event.key > 0 && event.key <= 5) {
+    drawTool();
+    tool_size=parseInt(event.key);
+    toolSizeUpdate();
+  }
+  // do something
+});

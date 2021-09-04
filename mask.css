@@ -36,19 +36,14 @@ position: static;
 
 .title div, .sub-title div, .title span {filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px 2px 0px white)
       drop-shadow(2px -2px 0px white) drop-shadow(-2px -2px 0px white);}
-.title:hover {}
+
 .title span {font-size: 0.5em; position: absolute; top: 90%; left: 80%; display: none; text-transform: capitalize;}
-.title:hover span {display: inline-block;   }
+.title:hover span {display: inline-block; }
 
 .sub-title {font-family: neolithic; font-size: 2em; }
-/* .sub-title, .title div, .title span { */
-  .sub-title {
 
-}
-
-
-.close-controls {font-family: neolithic; font-size: 2em; cursor:pointer; position: absolute; top: 5px; right: 5px;}
-.close-controls {filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey); background-color: white; padding: 0px 4px; 
+.close-controls {font-family: neolithic; font-size: 2em; cursor:pointer; position: absolute; top: -5px; right: -5px;}
+.close-controls {filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey); background-color: white; padding: 0px 4px; border: 0;
 }
 
 .title, .sub-title, .title span {cursor: pointer;}
@@ -56,27 +51,16 @@ position: static;
 div.feature-controls:not(button) {font-family: neolithic;
 font-family: 'lucida grande', 'lucida', 'courier new', monospace; font-weight: 700;
 font-family: pixel;}
-/* button {font-family: neolithic; text-transform: uppercase;} */
-.feature-controls {}
-div.feature-controls button {font-family: neolithic; background-color: white; border: 0; cursor: pointer;}
-div.feature-controls button span {display: inline-block; }
-div.feature-controls button:nth-of-type(1) span {transform: rotate(90deg) scale(2); }
-div.feature-controls button:nth-of-type(2) span {transform: rotate(270deg) scale(2); }
-div.feature-controls button:nth-of-type(3) span {transform: rotate(270deg) scale(2); }
 
-input[type=range] {appearance: ;}
 
 .mask {height: 80em; width: calc(80em * 3/4);
   background-color: papayawhip;
-  /* background-color: aqua; */
   position: relative; }
 
   /* // where the mask is! */
 .mask-drawer {font-size: 4px;
-  /* height: 80em; width: calc(80em * 3/4);  */
   background-color: papayawhip;
   background-color: lightgrey;
-  /* background-color: dodgerblue;  */
   position: relative;
   border: 3px solid white;
   filter: drop-shadow(3px 3px 0px grey) drop-shadow(-3px -3px 0px darkgrey) drop-shadow(-3px 3px 0px dimgrey) drop-shadow(3px -3px 0px lightgrey)}
@@ -86,38 +70,28 @@ input[type=range] {appearance: ;}
 
 .mask-mould {display: none;}
 
-/* .cell[class$='-template'] {background-color: black;} */
-/* .face-template {background-color: black;} */
-
 .cell {width: 4em; height: 4em;
-  /* background-color: aqua;  */
   position: absolute;
   /* box-shadow: 0px 0px 1px black;  */
   cursor: cell; }
 
-/* .cell-draw-receiver{border-radius: 50%; width: 75%; height:75%; background-color: white; opacity: 0; position: absolute;  left: 12.5%; top: 12.5%; } */
 .cell-draw-receiver{border-radius: 0%; width: 70.71%; height:70.71%; background-color: white; opacity: 0; position: absolute;  left: 14.64%; top: 14.64%; transform: rotate(45deg);}
-/* .cell.variation {background-color: lightblue;} */
 
-.drawn {background-color: black;}
-/* .face-template {background-color: black;} */
+
+
 
 .colour-buttons button {height: 2em; width: 2em; border: 0px solid white; cursor: pointer; margin: 3px;}
-.colour-buttons button.selected-colour {height: 2.2em; width: 2em;}
+.colour-buttons button.selected {height: 2em; width: 2em;}
 
 .colour-buttons {border: 4px solid black; background-color: white;}
-.colour-buttons button:hover {  filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey);}
+.colour-buttons button:hover, .colour-buttons button.selected {  filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey);}
 /* .colour-buttons button:hover {  border: 2px solid grey;} */
 .drawer-container {margin: auto;
   width: 35em;position: relative;}
 
 .mask-drawer-controls, .info-drawer {
-  /* top: 20px; */
   position: absolute;
-  /* margin-left: 10px;  */
   padding: 0 5px;
-  /* display: inline-block; */
-  
   transform: scaleY(0);
   transition: transform 0.2s;
   background-color: white;
@@ -127,6 +101,7 @@ input[type=range] {appearance: ;}
   font-family: pixel;
   font-size: 0.8em;
 }
+.info-drawer {margin: 60px;}
 .mask-drawer-controls.shown, .info-drawer.shown {
   transform: scaleY(1);
 }
@@ -137,13 +112,21 @@ input[type=range] {appearance: ;}
   position: relative;
   margin-left: 10px; padding: 5px;
 }
-.control-buttons button, .control-buttons output, .colour-buttons {
+.control-buttons button, .control-buttons output, .colour-buttons, button.tool, .tool-buttons button {
   font-family: pixel;
   border: 2px solid grey;
-  padding: 4px; margin: 6px;
+  padding: 4px; margin: 6px 6px;
   filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey);
   
 }
+
+.tool-buttons button {margin: 8px 2px;}
+
+button.tool.selected, button[name=tool-size].selected, button.selected {background-color: dimgrey; color: white;}
+button[name=tool-size] {width: 1.5em; text-align: center;}
+/* button.tool {filter: drop-shadow(2px 2px 0px rgb(155, 155, 155)) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px lightgrey) drop-shadow(2px -2px 0px lightgrey);} */
+/* button.tool.selected {filter: drop-shadow(3px 3px 0px rgb(100, 100, 100)) drop-shadow(-3px -3px 0px rgb(129, 129, 129)) drop-shadow(-3px 3px 0px dimgrey) drop-shadow(3px -3px 0px black);} */
+
 button:hover {cursor: pointer;}
 .control-buttons output {
   background-color: white; padding: 4px; 
@@ -157,19 +140,12 @@ button:hover {cursor: pointer;}
   padding: 4px; margin: 4px;
 }
 
-.control-buttons button:hover, .close-controls:hover {
+.control-buttons button:hover:not(.tool.selected), .close-controls:hover, .button-tool.selected , .tool-buttons button:hover{
   filter: drop-shadow(3px 3px 0px grey) drop-shadow(-3px -3px 0px darkgrey) 
   drop-shadow(-3px 3px 0px dimgrey) drop-shadow(3px -3px 0px lightgrey);
   opacity: 0.75;
 }
 .control-buttons button:active {opacity: 0.75;}
-.maker-border {border: 4px solid black; position: absolute;}
-.maker-border.vert {width: 4px; height: calc(100% - 8px); border-width: 0px 4px; top: 4px; }
-.maker-border.hori {width: calc(100% - 8px); height: 4px; border-width: 4px 0; left: 4px;}
-
-
-.maker-border-corner {width: 12px; height: 12px; background-color: black; position: absolute;}
-
 
 .mask-display {
   position: absolute; top: 20px;
@@ -184,9 +160,6 @@ div.title-inner, .mask-drawer-controls {z-index: 2;}
   display: inline-block; position: absolute; }
 
 .display-cell {position: absolute;}
-
-
-
 
 
 

@@ -50,6 +50,23 @@
 
   <div class='maker-controls'>
 
+    <div class='tool-buttons'>
+      <button name='draw-tool' class='tool selected'>Draw</button>
+      <button name='erase-tool' class='tool'>Erase</button>
+      <br />
+      Size:
+      <!-- <button name='tool-size-down'>-</button>
+      <output name='tool-size-display' value='1'>1</output>
+      <button name='tool-size-up'>+</button><br> -->
+
+      <button name='tool-size' value='1'>1</button>
+      <button name='tool-size' value='2'>2</button>
+      <button name='tool-size' value='3'>3</button>
+      <button name='tool-size' value='4'>4</button>
+      <button name='tool-size' value='5'>5</button><br>
+
+    </div>
+
     <div class='colour-buttons'>
 
     </div>
@@ -81,41 +98,28 @@
       
       <!-- <button name='save'>Save</button>
       <button name='save-colour'>Save (Colour)</button><br /> -->
-      Tool Size:<br>
-      <button name='tool-size-down'>-</button>
-      <output name='tool-size-display' value='1'>1</output>
-      <button name='tool-size-up'>+</button><br>
-      <!-- <button name='fill-face'>Fill</button> -->
-      <!-- <button name='fill-tool'>Fill Tool</button><br> -->
-      <button name='draw-tool'>Draw</button>
-      <!-- <button name='big-tool'>Big Tool</button> -->
-      <button name='erase-tool'>Erase</button>
-      <br />
-      <button name='clear-all'>clear all</button>
-      <!-- <button name='clear-drawn'>clear drawn</button> -->
-      <button name='grid'>grid</button><br />
       <!-- <button name='save-all'>Save All</button>
       <button name='save-all-mono'>Save All (mono)</button><br /> -->
       <!-- <input name='result' type='text-area' /><br /> -->
       <!-- <button name='import'>Import</button> -->
+
+      
+     
+      
+      <button name='clear-all'>clear all</button>
+  
+      <button name='grid'>grid</button><br />
+
       <button name='mongo-save'>--> MongoDB</button><br />
-      name:<input name='name' type='text-area' /><br />
-      <output name='message' value='hello'>howdy</output>
+      name:<input name='name' type='' /><br />
+      <!-- <span class='created-name-input'><div class='name-input-inner'>. . .</div></span> -->
+      <output name='message' value='hello' contentEditable="true">. . .</output>
 
     </div>
     <!-- <input name='result-colour' type='text-area' /> -->
 
 
   </div>
-
-  <!-- <div class='maker-border vert' style='left: 100%;'></div>
-  <div class='maker-border vert' style='right: 100%;'></div>
-  <div class='maker-border hori' style='top: 100%;'></div>
-  <div class='maker-border hori' style='bottom: 100%;'></div>
-  <div class='maker-border-corner' style='left: -12px; top: -12px;' ></div>
-  <div class='maker-border-corner' style='left: -12px; bottom: -12px;'></div>
-  <div class='maker-border-corner' style='right: -12px; top: -12px;'></div>
-  <div class='maker-border-corner' style='right: -12px; bottom: -12px;'></div> -->
 
   <button class='close-controls'>
     x
@@ -148,8 +152,7 @@
 
 <script>
 function toggleControls(on) {
-  let controls = document.querySelector('.mask-drawer-controls').classList;
-  let info = document.querySelector('.info-drawer').classList;
+
   if (on == 'on') {
     if (!controls.contains('shown')) {  controls.add('shown');    }
   } else if (on == 'off') {
@@ -157,12 +160,17 @@ function toggleControls(on) {
   } else {
     controls.toggle('shown');
   }
-  if (controls.contains('shown')) {info.remove('shown');}
+  // if (controls.contains('shown')) {info.remove('shown');}
 }
 
+let controls = document.querySelector('.mask-drawer-controls').classList;
+let info = document.querySelector('.info-drawer').classList;
+
 function toggleInfo(on) {
-  let info = document.querySelector('.info-drawer').classList;
   
+  // if (controls.contains('shown')) {
+  //   controls.remove('shown');
+  // }
   if (on == 'on') {
     if (!info.contains('shown')) {  info.add('shown');    }
   } else if (on == 'off') {
@@ -170,10 +178,17 @@ function toggleInfo(on) {
   } else {
     info.toggle('shown');
   }
+  
+  
 }
 
 document.querySelector('.sub-title').addEventListener('click', () => {
-  toggleControls();
+  if (info.contains('shown')) {
+    toggleInfo('off');
+    setTimeout(function(){  toggleControls('on');}, 200);
+  } else {
+    toggleControls();
+  }
 
 })
 
@@ -183,8 +198,13 @@ document.querySelector('.close-controls').addEventListener('click', () => {
 })
 
 document.querySelector('.title').addEventListener('click', () => {
-  toggleInfo();
-  toggleControls('off');
+  if (controls.contains('shown')) {
+    toggleControls('off');
+    setTimeout(function(){  toggleInfo('on');}, 200);
+  } else {
+    toggleInfo();
+  }
+  
 })
 
 </script>
