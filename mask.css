@@ -60,8 +60,8 @@ position: static;
   transition: transform 0.2s;
   background-color: white;
   border: 16px solid white;
-  filter: drop-shadow(4px 4px 0px palevioletred) drop-shadow(-4px 4px 0px mediumpurple)
-      drop-shadow(4px -4px 0px dodgerblue) drop-shadow(-4px -4px 0px aquamarine);
+  filter: drop-shadow(3px 3px 0px palevioletred) drop-shadow(-3px 3px 0px mediumpurple)
+      drop-shadow(3px -3px 0px dodgerblue) drop-shadow(-3px -3px 0px aquamarine);
   font-family: pixel;
   font-size: 0.8em;
 }
@@ -133,6 +133,8 @@ button:hover {cursor: pointer;}
 button[name=name-input-button] > div {width: 10em; display: inline-block; text-align: left;}
 .name-input-inner {display: inline-block; height: 1em;  text-align: left; animation:cursor_blink 1s 0s step-end infinite; max-width: 10em; right: 0; overflow: hidden;}
 
+button[name=mongo-save] {left: 100%; position: relative; transform: translateX(-100%);}
+
 /* @keyframes cursor_blink {
   0%, 100% {border-right: 2px solid white;}
   50% {border-right: 2px solid transparent;}
@@ -155,6 +157,7 @@ div.title-inner, .mask-drawer-controls {z-index: 2;}
 .mask-drawer {font-size: 4px;
   background-color: papayawhip;
   background-color: lightgrey;
+  background-color: #eee;
   position: relative;
   border: 3px solid white;
   filter: drop-shadow(3px 3px 0px grey) drop-shadow(-3px -3px 0px darkgrey) drop-shadow(-3px 3px 0px dimgrey) drop-shadow(3px -3px 0px lightgrey)}

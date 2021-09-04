@@ -25,7 +25,9 @@ let across = (container_width - (container_width % max_mask_size)) / max_mask_si
 let maskSize = [90,120];
 maskSize[0] = (container_width/across)*0.9;
 maskSize[1] = maskSize[0] / (3/4);
-let rows = 8;
+let rows = Math.floor(window.innerHeight / maskSize[1]);
+
+
 
 // console.log(maskSize);
 

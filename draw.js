@@ -12,8 +12,10 @@ let tool = 'draw';
 let tool_size = 1;
 let currentColourNo = 0;
 
-const colours = ['black','saddlebrown','chocolate','sandybrown','wheat','white', 'dodgerblue', 'aqua','aquamarine','lightgreen','mediumseagreen', 'limegreen', 'gold','orange','orangered','crimson','palevioletred','mediumpurple',];//darkorchid?
+const colours0 = ['black','saddlebrown','chocolate','sandybrown','wheat','white', 'dodgerblue', 'aqua','aquamarine','lightgreen','mediumseagreen', 'limegreen', 'gold','orange','orangered','crimson','palevioletred','mediumpurple',];//darkorchid?
 //peru   // chocolate','sandybrown' or 'sienna','tan'
+
+const colours = ['black','saddlebrown','chocolate','sandybrown','wheat','white', 'dodgerblue', 'aqua','aquamarine','lightgreen','mediumseagreen', 'limegreen', 'gold','orange','orangered','crimson','palevioletred','mediumpurple','lightgrey','dimgrey'];
 const Cell = (dom, x, y, c) => {//c is colour, d is last drawn colour, t is last templated colour
   const func = () => result;
   let d = undefined;
@@ -43,7 +45,8 @@ function hold() {
     if (tool == 'erase') {
       let drawArray = expandCell(cellDom);
       eraseCells(drawArray);
-      
+    } else if (tool == 'swap'){
+      return;
     } else {
       let drawArray = expandCell(cellDom);
       drawCells(drawArray);
@@ -66,7 +69,7 @@ function expandCell(cellDom) {
     case 4: extra_cells = [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1], [-2,0],[0,2],[2,0],[0,-2]]; break;
     case 5: extra_cells = [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1], [-2,0],[0,2],[2,0],[0,-2], [-2,1],[1,2],[2,1],[1,-2],[-2,-1],[-1,2],[2,-1],[-1,-2],];
   }
-  
+
   extra_cells.forEach(coord => {
     let newX = cellX+coord[0]; let newY = cellY+coord[1];
     if (newX < 21 && newX >= 0 && newY < 28 && newY >= 0) {
@@ -100,103 +103,40 @@ function eraseCells(draw_array) {
   })
 }
 
+// function swapRelease() {
+//   console.log(event.target)
+//   let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
+//   return cellDom.object.c;
+// }
+
+function swapCells(cellDom) {
+  let old_colour = cellDom.object.c;
+  // console.log(cellDom.parentNode)
+  // cellDom.parentNode.addEventListener('mouseup', swapRelease);
+  let new_colour = currentColourNo;
+  document.querySelectorAll('.drawn').forEach(cell => {
+    if (cell.object.c==old_colour) {
+      cell.object.changeColour(new_colour);
+      cell.object.c = new_colour;
+      cell.object.colour();
+    }
+  })
+
+}
+
 function click() {
   let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
   if (tool == 'erase') {
     let drawArray = expandCell(cellDom);
     eraseCells(drawArray);
+  } else if (tool == 'swap') {
+    swapCells(cellDom);
   } else {
     let drawArray = expandCell(cellDom);
     drawCells(drawArray);
   }
 }
 
-
-// function fill() {
-//   let noFillSelector = '.drawn, .template';
-//   let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
-//   // let old_colour = cellDom.object.c;
-//   let old_colour = getComputedStyle(cellDom).backgroundColor;
-//   let fill_colour = currentColourNo;
-//   let maxY = 27; let maxX = 20;
-//   let direction = 0; //0 up 1 right 2 down, 3 left
-//   let done = false;
-//   let colourWord = colours[currentColourNo];
-//   cellDom.object.changeColour(fill_colour);
-//   cellDom.object.colour();
-//   cellDom.style.backgroundColor = colourWord;
-//   cellDom.classList.add('fill');
-
-//   // console.log('fill', cellDom.object, fill_colour, old_colour);
-//   function cell(direction) {
-//     switch(direction) {
-//       case 0:
-//         return cellArray[cellDom.object.y+1][cellDom.object.x];
-//         break;
-//       case 1:
-//         return cellArray[cellDom.object.y][cellDom.object.x+1];
-//         break;
-//       case 2:
-//         return cellArray[cellDom.object.y-1][cellDom.object.x];
-//         break;
-//       case 3:
-//         return cellArray[cellDom.object.y][cellDom.object.x-1];
-//     }
-//   }
-//   function move() {
-//     // console.log(99)
-//     let fill_and_move = false;
-//     direction == 0 ? direction+=3 : direction--;
-//     let tries = 0;
-//     let loops = 0;
-//     while (fill_and_move == false && tries < 4 && loops < (5)) {
-
-//       let target_cell = cell(direction);
-//       // target_cell.
-//       console.log(target_cell);
-//       let target_bg = (target_cell == undefined) ? 'window' : getComputedStyle(target_cell).backgroundColor;
-//       if (target_bg == old_colour){
-//         // if (target_cell.object.c == old_colour){
-//         fill_and_move = true;
-//         target_cell.object.c == fill_colour;
-//         target_cell.classList.add('fill');
-//         target_cell.object.changeColour(fill_colour);
-//         cellDom = target_cell;
-//         cellDom.object.changeColour(fill_colour);
-//         cellDom.object.c == fill_colour;
-//         cellDom.object.colour(fill_colour);
-//         cellDom.style.backgroundColor = colourWord;
-//         cellDom.classList.add('fill');
-//         console.log(cellDom.object, target_cell.object, direction, 'fill and move');
-//       } else if (tries==4) {
-//         done = true;
-//         console.log('tries=4');
-//       } else {
-//         fill_and_move = false;
-//         direction == 3 ? direction-=3 : direction++;
-//         tries++;
-//         console.log(direction, 'try again');
-//       }
-//       loops++;
-
-
-//     }
-//     if (tries == 4) {
-//       done = true;
-//     }
-//   }
-//   loops = 0;
-
-//   // for (let i = 0; i < 4; i++) {
-//   //   direction = i;
-//     while (done == false && loops < (21*27)) {
-//       console.log('2nd while');
-//       move();
-//       loops++;
-//     }
-//   // }
-//   //directions
-// }
 
 for (let j = 0; j < y; j++) {
   let arrayRow = [];
@@ -222,31 +162,7 @@ for (let j = 0; j < y; j++) {
     cell.addEventListener('mousedown', click);
     drawReceiver.ondragstart = () => {return false}; //WOO REMOVES DRAG!
     // cell.children[0].addEventListener('mousedown', clickDraw);
-    let haveTracing = false;
-    // haveTracing = true;
-    if (haveTracing) {
-      let trace = '';
-      if(i < 3 || j > 24 || i > 17 || j < 3) {//j is y, i is x
-        trace = 'face';
-      } else if(i < 4 && j > 22 || i > 16 && j < 4 || j > 22 && i > 16 || i < 4 && j < 4) {//j is y, i is x
-        trace = 'face';
-      } else if(j > 20) {
-        trace = 'forehead';
-      } else if(j > 17) {
-        trace = 'brows';
-      } else if(j > 8 && i < 12 && i > 8 && j < 17) {
-        trace = 'nose';
-      } else if(j > 8 && i < 13 && i > 7 && j < 14) {
-        trace = 'nose';
-      } else if(j > 11) {
-        trace = 'eyes';
-      } else if(j > 2 && j < 8 && i < 15 && i > 5) {
-        trace = 'mouth';
-      } else if(j > 3 && j < 11 && i < 18 && i > 2) {
-        trace = 'cheeks';
-      }
-      cell.classList.add('trace-' + trace);
-    }
+
   }
   cellArray[j] = arrayRow;
 }
@@ -398,7 +314,7 @@ function clearAll() {
 // });
 
 function toolSizeUpdate(){
-  
+
   tool_buttons.forEach(button => {
     button.classList.remove('selected');
   })
@@ -416,17 +332,26 @@ tool_buttons[tool_size-1].classList.add('selected');
 
 const draw_button = document.querySelector('[name=draw-tool]');
 const erase_button = document.querySelector('[name=erase-tool]');
+const swap_button = document.querySelector('[name=swap-tool]');
 
 function eraseTool() {
   tool = 'erase';
   draw_button.classList.remove('selected');
+  swap_button.classList.remove('selected');
   erase_button.classList.add('selected');
 }
 
 function drawTool() {
   tool = 'draw';
   erase_button.classList.remove('selected');
+  swap_button.classList.remove('selected');
   draw_button.classList.add('selected');
+}
+function swapTool() {
+  tool = 'swap';
+  erase_button.classList.remove('selected');
+  draw_button.classList.remove('selected');
+  swap_button.classList.add('selected');
 }
 
 document.querySelector('[name=clear-all]').addEventListener('click', clearAll);
@@ -435,6 +360,9 @@ draw_button.addEventListener('click', () => {
 });
 erase_button.addEventListener('click', () => {
   eraseTool();
+});
+swap_button.addEventListener('click', () => {
+  swapTool();
 });
 
 let cellGridsOn = false;
@@ -479,9 +407,30 @@ function colourSelect() {
 }
 
 const colour_buttons = [];
+//
+// (function () {
+//   let skins = colours.slice(1,5);
+//   let greys = colours.slice(18);
+//   let multis = colours.slice(6,18);
+//
+//   colours_sorted = [colours[0]].concat(greys,colours[5],multis,skins);
+// })();
+// () => {
+  // let colours_sorted = colours;
+
+  // colours_new.slice()
+
+
+// }
+
+// console.log(colours_sorted);
+// let colours_sorted = colours[0].concat(colours.slice(5,15),colours.slice(15),);
+
+
+// colours_sorted = [colours[0],colours[18],colours]
 
 colours.forEach(colour => {
-  
+
 
   let sub = document.createElement('button');
 
@@ -506,7 +455,7 @@ let holding_erase = false;
 document.addEventListener("keyup", ()=>{holding_erase=false;});
 
 document.addEventListener("keydown", event => {
-  if (event.isComposing || event.keyCode === 229) { 
+  if (event.isComposing || event.keyCode === 229) {
     return;
   // } else if (inputting_name && (event.keyCode >= 48 && event.keyCode <=90)) {
   //   name_input_inner.innerHTML += event.key;
@@ -531,7 +480,7 @@ document.addEventListener("keydown", event => {
     tool_size=parseInt(event.key);
     toolSizeUpdate();
   }
-  
+
 });
 
 // const name_input = document.querySelector('[name=name-input-button]');
@@ -542,6 +491,6 @@ document.addEventListener("keydown", event => {
 // name_input.addEventListener("click", () => {
 //   name_input.classList.add('selected');
 //   if (inputting_name == undefined) {name_input_inner.innerHTML = '';}
-  
+
 //   inputting_name = true;
 // })
