@@ -8,6 +8,9 @@ let loaded_mask = undefined;
 
 function updateMessage(message) {
   document.querySelector('[name=message]').value = message;
+  let message_cont = document.querySelector('.message-drawer');
+  setTimeout(function(){ message_cont.classList.add('shown') }, 200);
+  setTimeout(function(){ message_cont.classList.remove('shown') }, 1200);
 }
 
 // gets passed mongo object and js dom initially

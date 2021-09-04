@@ -33,12 +33,20 @@
   </div>
   <div class='drawer-container'>
 
+    <div class='message-drawer'>
+      <output name='message' value='hello' >. . .</output>
+    </div>
+
   <div class='info-drawer'>
     Welcome to Mask Maker (2.0).
     <br><br>
     This is a friendly site where you can create a mask using the handy editor, and then add it to the wall of masks.
 
     You can even add a message with it if you like (tbc).
+
+    <button class='close close-info'>
+      x
+    </button>
   </div>
 
 <div class='mask-drawer-controls shown'>
@@ -71,31 +79,11 @@
 
     </div>
 
-    <!-- <div class='feature-controls face'>
-      <button class='dec'><span>v</span></button><button class='inc'><span>v</span></button><button class='clear'><span>x</span></button>Face<br>
-    </div>
-    <div class='feature-controls forehead'>
-      <button class='dec'><span>v</span></button><button class='inc'><span>v</span></button><button class='clear'><span>x</span></button>Forehead <span class='no'> </span><br>
-    </div>
-    <div class='feature-controls eyebrows'>
-      <button class='dec'><span>v</span></button><button class='inc'><span>v</span></button><button class='clear'><span>x</span></button>Eyebrows<br>
-    </div>
-    <div class='feature-controls eyes'>
-      <button class='dec'><span>v</span></button><button class='inc'><span>v</span></button><button class='clear'><span>x</span></button>Eyes<br>
-    </div>
-    <div class='feature-controls nose'>
-      <button class='dec'><span>v</span></button><button class='inc'><span>v</span></button><button class='clear'><span>x</span></button>Nose<br>
-    </div>
-    <div class='feature-controls cheeks'>
-      <button class='dec'><span>v</span></button><button class='inc'><span>v</span></button><button class='clear'><span>x</span></button>Cheeks<br>
-    </div>
-    <div class='feature-controls mouth'>
-      <button class='dec'><span>v</span></button><button class='inc'><span>v</span></button><button class='clear'><span>x</span></button>Mouth<br>
-    </div> -->
+
 
     <div class='control-buttons'>
 
-      
+
       <!-- <button name='save'>Save</button>
       <button name='save-colour'>Save (Colour)</button><br /> -->
       <!-- <button name='save-all'>Save All</button>
@@ -103,28 +91,34 @@
       <!-- <input name='result' type='text-area' /><br /> -->
       <!-- <button name='import'>Import</button> -->
 
-      
-     
-      
-      <button name='clear-all'>clear all</button>
-  
-      <button name='grid'>grid</button><br />
 
-      <button name='mongo-save'>--> MongoDB</button><br />
-      name:<input name='name' type='' /><br />
-      <!-- <span class='created-name-input'><div class='name-input-inner'>. . .</div></span> -->
-      <output name='message' value='hello' contentEditable="true">. . .</output>
+
+
+      <button name='clear-all'>Clear</button>
+
+      <button name='grid'>Grid</button><br />
+
+
+      <div>Name:
+      <input name='name' class='name' /><br />
+
+      <!-- <button name='name-input-button' >
+        <div><span class='name-input-inner'>. . .</span></div>
+      </button><br /> -->
+      <!-- <output name='message' value='hello' contentEditable="true">. . .</output> -->
+
 
     </div>
     <!-- <input name='result-colour' type='text-area' /> -->
-
+    <button name='mongo-save'>Save --></button><br />
 
   </div>
 
-  <button class='close-controls'>
+
+  </div>
+  <button class='close close-controls'>
     x
   </button>
-  </div>
 </div>
 
   </div></div></div></div>
@@ -167,7 +161,7 @@ let controls = document.querySelector('.mask-drawer-controls').classList;
 let info = document.querySelector('.info-drawer').classList;
 
 function toggleInfo(on) {
-  
+
   // if (controls.contains('shown')) {
   //   controls.remove('shown');
   // }
@@ -178,8 +172,8 @@ function toggleInfo(on) {
   } else {
     info.toggle('shown');
   }
-  
-  
+
+
 }
 
 document.querySelector('.sub-title').addEventListener('click', () => {
@@ -197,6 +191,11 @@ document.querySelector('.close-controls').addEventListener('click', () => {
 
 })
 
+document.querySelector('.close-info').addEventListener('click', () => {
+  toggleInfo('off');
+
+})
+
 document.querySelector('.title').addEventListener('click', () => {
   if (controls.contains('shown')) {
     toggleControls('off');
@@ -204,7 +203,7 @@ document.querySelector('.title').addEventListener('click', () => {
   } else {
     toggleInfo();
   }
-  
+
 })
 
 </script>

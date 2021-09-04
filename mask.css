@@ -11,7 +11,6 @@ position: static;
 }
 
 @font-face {  font-family: neolithic;  src: url(assets/Neolithic.ttf); }
-
 @font-face {font-family: pixel; src: url(assets/pixelmix.ttf);}
 
 .title-and-controls-container {position: absolute; width: 100%; top: 0; left: 0; }
@@ -23,34 +22,129 @@ position: static;
 .title {font-family: neolithic; font-size: 3.0em; text-transform: uppercase;}
 
 
-.title, .sub-title {filter: drop-shadow(2px 2px 0px mediumseagreen) drop-shadow(-2px 2px 0px gold)
+.title, .sub-title {
+  filter: drop-shadow(2px 2px 0px mediumseagreen) drop-shadow(-2px 2px 0px gold)
   drop-shadow(2px -2px 0px orange) drop-shadow(-2px -2px 0px orangered);}
-.sub-title {filter: drop-shadow(2px 2px 0px aquamarine) drop-shadow(-2px 2px 0px limegreen)
+.sub-title {
+  filter: drop-shadow(2px 2px 0px aquamarine) drop-shadow(-2px 2px 0px limegreen)
     drop-shadow(2px -2px 0px mediumseagreen) drop-shadow(-2px -2px 0px gold);}
-.sub-title:hover {filter: drop-shadow(3px 3px 0px aquamarine) drop-shadow(-3px 3px 0px limegreen)
+.sub-title:hover {
+  filter: drop-shadow(3px 3px 0px aquamarine) drop-shadow(-3px 3px 0px limegreen)
         drop-shadow(3px -3px 0px mediumseagreen) drop-shadow(-3px -3px 0px gold);}
 
-.title:hover {filter: drop-shadow(3px 3px 0px mediumseagreen) drop-shadow(-3px 3px 0px gold)
+.title:hover {
+  filter: drop-shadow(3px 3px 0px mediumseagreen) drop-shadow(-3px 3px 0px gold)
     drop-shadow(3px -3px 0px orange) drop-shadow(-3px -3px 0px orangered);}
 
-
-.title div, .sub-title div, .title span {filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px 2px 0px white)
+.title div, .sub-title div, .title span {
+  filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px 2px 0px white)
       drop-shadow(2px -2px 0px white) drop-shadow(-2px -2px 0px white);}
+
+.title, .sub-title, .title span {cursor: pointer;}
 
 .title span {font-size: 0.5em; position: absolute; top: 90%; left: 80%; display: none; text-transform: capitalize;}
 .title:hover span {display: inline-block; }
 
 .sub-title {font-family: neolithic; font-size: 2em; }
 
-.close-controls {font-family: neolithic; font-size: 2em; cursor:pointer; position: absolute; top: -5px; right: -5px;}
-.close-controls {filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey); background-color: white; padding: 0px 4px; border: 0;
+
+/* DRAWER CONTROLS */
+
+.drawer-container {margin: auto;
+  width: 35em;position: relative;}
+
+.mask-drawer-controls, .info-drawer, .message-drawer {
+  position: absolute;
+  padding: 0 5px;
+  transform: scaleY(0);
+  transition: transform 0.2s;
+  background-color: white;
+  border: 16px solid white;
+  filter: drop-shadow(4px 4px 0px palevioletred) drop-shadow(-4px 4px 0px mediumpurple)
+      drop-shadow(4px -4px 0px dodgerblue) drop-shadow(-4px -4px 0px aquamarine);
+  font-family: pixel;
+  font-size: 0.8em;
 }
 
-.title, .sub-title, .title span {cursor: pointer;}
+.mask-drawer-controls.shown, .info-drawer.shown {
+  transform: scaleY(1);
+}
+.message-drawer.shown {transform: scaleY(1) translateX(-50%);}
+.message-drawer {z-index:30; padding: 20px 60px;}
+
+.info-drawer {z-index: 30; margin-top: 50px;}
+
+.message-drawer {margin: auto; width: 50%; top: 60px; text-align: center; transform: scaleY(0) translateX(-50%); left: 50%;}
+
+
+/* CONTROLS & BUTTONS */
+
+.close {font-family: neolithic; font-size: 2em; cursor:pointer; position: absolute; top: -5px; right: -5px;}
+.close {filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey); background-color: white; padding: 0px 4px; border: 0;
+}
 
 div.feature-controls:not(button) {font-family: neolithic;
 font-family: 'lucida grande', 'lucida', 'courier new', monospace; font-weight: 700;
 font-family: pixel;}
+
+.colour-buttons button {height: 2em; width: 2em; border: 0px solid white; cursor: pointer; margin: 3px;}
+.colour-buttons button.selected {height: 2em; width: 2em;}
+
+.colour-buttons {border: 4px solid black; background-color: white;}
+.colour-buttons button:hover, .colour-buttons button.selected {  filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey);}
+
+.maker-controls {
+  position: relative;
+  margin-left: 10px; padding: 5px;
+}
+
+.control-buttons button, .control-buttons output, .colour-buttons, button.tool, .tool-buttons button, input.name {
+  font-family: pixel;
+  border: 2px solid grey;
+  padding: 4px; margin: 6px 6px;
+  filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey);
+
+}
+
+.tool-buttons button {margin: 8px 2px;}
+
+button.tool.selected, button[name=tool-size].selected, button.selected {background-color: dimgrey; color: white;}
+button[name=tool-size] {width: 1.5em; text-align: center;}
+
+
+button:hover {cursor: pointer;}
+.control-buttons output {
+  background-color: white; padding: 4px;
+}
+.control-buttons output[name=tool-size-display] {
+  background-color: white; width: 1em; display: inline-block; text-align: center; cursor: default;
+}
+
+.colour-buttons {
+  padding: 4px; margin: 4px;
+}
+
+.control-buttons button:hover:not(.tool.selected), .close:hover, .button-tool.selected , .tool-buttons button:hover{
+  filter: drop-shadow(3px 3px 0px grey) drop-shadow(-3px -3px 0px darkgrey)
+  drop-shadow(-3px 3px 0px dimgrey) drop-shadow(3px -3px 0px lightgrey);
+  opacity: 0.75;
+}
+.control-buttons button:active {opacity: 0.75;}
+button[name=name-input-button] > div {width: 10em; display: inline-block; text-align: left;}
+.name-input-inner {display: inline-block; height: 1em;  text-align: left; animation:cursor_blink 1s 0s step-end infinite; max-width: 10em; right: 0; overflow: hidden;}
+
+/* @keyframes cursor_blink {
+  0%, 100% {border-right: 2px solid white;}
+  50% {border-right: 2px solid transparent;}
+} */
+
+input.name {width: 11em;}
+
+.mask-display {
+  position: absolute; top: 20px;
+  z-index: 1;
+}
+div.title-inner, .mask-drawer-controls {z-index: 2;}
 
 
 .mask {height: 80em; width: calc(80em * 3/4);
@@ -72,87 +166,9 @@ font-family: pixel;}
 
 .cell {width: 4em; height: 4em;
   position: absolute;
-  /* box-shadow: 0px 0px 1px black;  */
   cursor: cell; }
 
 .cell-draw-receiver{border-radius: 0%; width: 70.71%; height:70.71%; background-color: white; opacity: 0; position: absolute;  left: 14.64%; top: 14.64%; transform: rotate(45deg);}
-
-
-
-
-.colour-buttons button {height: 2em; width: 2em; border: 0px solid white; cursor: pointer; margin: 3px;}
-.colour-buttons button.selected {height: 2em; width: 2em;}
-
-.colour-buttons {border: 4px solid black; background-color: white;}
-.colour-buttons button:hover, .colour-buttons button.selected {  filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey);}
-/* .colour-buttons button:hover {  border: 2px solid grey;} */
-.drawer-container {margin: auto;
-  width: 35em;position: relative;}
-
-.mask-drawer-controls, .info-drawer {
-  position: absolute;
-  padding: 0 5px;
-  transform: scaleY(0);
-  transition: transform 0.2s;
-  background-color: white;
-  border: 16px solid white;
-  filter: drop-shadow(4px 4px 0px palevioletred) drop-shadow(-4px 4px 0px mediumpurple)
-      drop-shadow(4px -4px 0px dodgerblue) drop-shadow(-4px -4px 0px aquamarine);
-  font-family: pixel;
-  font-size: 0.8em;
-}
-.info-drawer {margin: 60px;}
-.mask-drawer-controls.shown, .info-drawer.shown {
-  transform: scaleY(1);
-}
-
-.info-drawer {z-index: 30; margin-top: 50px;}
-
-.maker-controls {
-  position: relative;
-  margin-left: 10px; padding: 5px;
-}
-.control-buttons button, .control-buttons output, .colour-buttons, button.tool, .tool-buttons button {
-  font-family: pixel;
-  border: 2px solid grey;
-  padding: 4px; margin: 6px 6px;
-  filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey);
-  
-}
-
-.tool-buttons button {margin: 8px 2px;}
-
-button.tool.selected, button[name=tool-size].selected, button.selected {background-color: dimgrey; color: white;}
-button[name=tool-size] {width: 1.5em; text-align: center;}
-/* button.tool {filter: drop-shadow(2px 2px 0px rgb(155, 155, 155)) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px lightgrey) drop-shadow(2px -2px 0px lightgrey);} */
-/* button.tool.selected {filter: drop-shadow(3px 3px 0px rgb(100, 100, 100)) drop-shadow(-3px -3px 0px rgb(129, 129, 129)) drop-shadow(-3px 3px 0px dimgrey) drop-shadow(3px -3px 0px black);} */
-
-button:hover {cursor: pointer;}
-.control-buttons output {
-  background-color: white; padding: 4px; 
-}
-.control-buttons output[name=tool-size-display] {
-  background-color: white; width: 1em; display: inline-block; text-align: center; cursor: default;
-}
-
-
-.colour-buttons {
-  padding: 4px; margin: 4px;
-}
-
-.control-buttons button:hover:not(.tool.selected), .close-controls:hover, .button-tool.selected , .tool-buttons button:hover{
-  filter: drop-shadow(3px 3px 0px grey) drop-shadow(-3px -3px 0px darkgrey) 
-  drop-shadow(-3px 3px 0px dimgrey) drop-shadow(3px -3px 0px lightgrey);
-  opacity: 0.75;
-}
-.control-buttons button:active {opacity: 0.75;}
-
-.mask-display {
-  position: absolute; top: 20px;
-  z-index: 1;
-}
-div.title-inner, .mask-drawer-controls {z-index: 2;}
-
 
 .mask-in-display {
   background-color: sienna;

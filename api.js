@@ -17,6 +17,7 @@ async function fetchMasks() {
   const result = await response.json();
   // console.log(result);
   // return result;
+  // console.log(JSON.stringify(result))
   fillMasks(result, true); //true is randomise
 
 }
@@ -45,7 +46,8 @@ async function saveToDb(map, name) {
     // response.json();
 
     if (response.ok) {
-      document.querySelector('[name=name]').value += ' added!';
+      // document.querySelector('[name=name]').value += ' added!';
+      updateMessage(name +' added!');
       response.json().then(json => {created_mask = json.mask;});
     } else {
       responseBox.innerHTML = response.statusText;

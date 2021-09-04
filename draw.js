@@ -69,7 +69,7 @@ function expandCell(cellDom) {
   
   extra_cells.forEach(coord => {
     let newX = cellX+coord[0]; let newY = cellY+coord[1];
-    if (newX < 21 && newX >= 0 && newY < 27 && newY >= 0) {
+    if (newX < 21 && newX >= 0 && newY < 28 && newY >= 0) {
       drawArray.push(cellArray[newY][newX]);
     }
   })
@@ -506,8 +506,16 @@ let holding_erase = false;
 document.addEventListener("keyup", ()=>{holding_erase=false;});
 
 document.addEventListener("keydown", event => {
-  if (event.isComposing || event.keyCode === 229) {
+  if (event.isComposing || event.keyCode === 229) { 
     return;
+  // } else if (inputting_name && (event.keyCode >= 48 && event.keyCode <=90)) {
+  //   name_input_inner.innerHTML += event.key;
+  // } else if (inputting_name && event.key == 'Backspace') {
+  //   name_input_inner.innerHTML = name_input_inner.innerHTML.substr(0,name_input_inner.innerHTML.length-1);
+  // } else if (inputting_name && event.code == 'Space') {
+  //   name_input_inner.innerHTML += '&nbsp';
+  // } else if (inputting_name && event.key == 'Enter') {
+  //   inputting_name = false;
   } else if (event.code == 'KeyE' || event.keyCode == 69) {
     eraseTool();
     holding_erase = true;
@@ -523,5 +531,17 @@ document.addEventListener("keydown", event => {
     tool_size=parseInt(event.key);
     toolSizeUpdate();
   }
-  // do something
+  
 });
+
+// const name_input = document.querySelector('[name=name-input-button]');
+// const name_input_inner = document.querySelector('.name-input-inner');
+
+// let inputting_name = undefined;
+
+// name_input.addEventListener("click", () => {
+//   name_input.classList.add('selected');
+//   if (inputting_name == undefined) {name_input_inner.innerHTML = '';}
+  
+//   inputting_name = true;
+// })
