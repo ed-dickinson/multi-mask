@@ -2,7 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
-const Mask = require('../models/mask');
+// const Mask = require('../models/mask');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -73,24 +73,6 @@ router.post('/add', function(req, res, next) {
 
 // PROTECTED
 
-router.post('/masks/update/:id', function(req, res, next) {
-  // let no = Mask.countDocuments();
-  Mask.findByIdAndUpdate(req.params.id, {name:req.body.name,map:req.body.map}, function(err,result) {
-        if (err) {return next(err);}
-        return res.json({message:'mask updated'});
-      });
-});
 
-router.post('/masks/delete/:id', function(req, res, next) {
-  // let no = Mask.countDocuments();
-  // Mask.findByIdAndUpdate(req.params.id, {name:req.body.name,map:req.body.map}, function(err,result) {
-  //       if (err) {return next(err);}
-  //       return res.json({message:'updated'});
-  //     });
-  Mask.findByIdAndRemove(req.params.id, function deleteMask(err) {
-      if (err) {return next(err);}
-      return res.json({message:'mask deleted.'});
-    });
-});
 
 module.exports = router;

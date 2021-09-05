@@ -10,6 +10,7 @@ var User = new Schema({
     // index:true,
   },
   password:{type:String,required:true},
+  admin:{type:Boolean, default: false},
   // name: String,
   date: {type:Date, default: Date.now}
   // author: {type: Schema.Types.ObjectId, ref: 'User'},
