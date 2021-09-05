@@ -149,6 +149,8 @@ button:hover {cursor: pointer;}
   padding: 4px; margin: 4px;
 }
 
+.colour-buttons button {position: absolute;}
+
 .control-buttons button:hover:not(.tool.selected), .close:hover, .button-tool.selected , .tool-buttons button:hover, .info-drawer button:hover{
   filter: drop-shadow(3px 3px 0px grey) drop-shadow(-3px -3px 0px darkgrey)
   drop-shadow(-3px 3px 0px dimgrey) drop-shadow(3px -3px 0px lightgrey);

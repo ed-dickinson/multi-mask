@@ -430,7 +430,7 @@ const colour_buttons = [];
 // colours_sorted = [colours[0],colours[18],colours]
 
 colours.forEach(colour => {
-
+  let i = colours.indexOf(colour);
 
   let sub = document.createElement('button');
 
@@ -442,7 +442,31 @@ colours.forEach(colour => {
   // if ((colours.indexOf(colour)+1) % 5 == 0) {
   //   // colourButtonCont.innerHTML += '<br>';
   // }
-  colourButtonCont.style.width = (6 * sub.clientWidth) + (6*6) + 'px';
+  colourButtonCont.style.width = (5 * sub.clientWidth) + (6*5) + 3 + 'px';
+  colourButtonCont.style.height = (4 * sub.clientWidth) + (5*5) + 'px';
+
+  let box_size = 34;
+  let xy = [];
+  switch(i) {//greys
+    case 0: xy = [0,3]; break;
+    case 18: xy = [0,2]; break;
+    case 19: xy = [0,1]; break;
+    case 5: xy = [0,0]; break;
+    default:
+  }
+
+  if (i > 0 && i <= 4) { //skins
+    xy = [i,3];
+  } else if (i >= 14 && i <= 17) {// purp - red
+    xy = [i-13,0]
+  } else if (i >= 10 && i <= 13) {// oranfe - green
+    xy = [i-9,2]
+  } else if (i >= 6 && i <= 9) { //blue - green
+    xy = [10-i,1]
+  }
+
+  sub.style.left = 3 + xy[0] * box_size + 'px'; sub.style.top = 3 + xy[1] * box_size + 'px';
+
 })
 
 colour_buttons[currentColourNo].classList.add('selected');
