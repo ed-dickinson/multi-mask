@@ -72,10 +72,11 @@ async function updateInDb(map, name) {
     name: name,
   };
 
-  fetch(directory + 'masks/update/' + loaded_mask._id, {
+  fetch(directory + 'protected/update/' + loaded_mask._id, {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
     },
     mode: 'cors',
     body: JSON.stringify(data),
@@ -86,7 +87,7 @@ async function updateInDb(map, name) {
     if (response.ok) {
       updateMessage(name +' updated!');
     } else {
-      responseBox.innerHTML = response.statusText;
+      updateMessage('Insufficient priviledges to update.');
     }
     return response.blob();
   })
@@ -117,10 +118,11 @@ function update() {
 
 async function deleteInDb(name) {
 
-  fetch(directory + 'masks/delete/' + loaded_mask._id, {
+  fetch(directory + 'protected/delete/' + loaded_mask._id, {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
     },
     mode: 'cors',
     // body: JSON.stringify(data),

@@ -22,9 +22,9 @@ position: static;
 .title {font-family: neolithic; font-size: 3.0em; text-transform: uppercase;}
 
 
-.title, .sub-title {
+/* .title, .sub-title {
   filter: drop-shadow(2px 2px 0px mediumseagreen) drop-shadow(-2px 2px 0px gold)
-  drop-shadow(2px -2px 0px orange) drop-shadow(-2px -2px 0px orangered);}
+  drop-shadow(2px -2px 0px orange) drop-shadow(-2px -2px 0px orangered);} */
 .sub-title {
   filter: drop-shadow(2px 2px 0px aquamarine) drop-shadow(-2px 2px 0px limegreen)
     drop-shadow(2px -2px 0px mediumseagreen) drop-shadow(-2px -2px 0px gold);}
@@ -36,9 +36,9 @@ position: static;
   filter: drop-shadow(3px 3px 0px mediumseagreen) drop-shadow(-3px 3px 0px gold)
     drop-shadow(3px -3px 0px orange) drop-shadow(-3px -3px 0px orangered);}
 
-.title div, .sub-title div, .title span {
+/* .title div, .sub-title div, .title span {
   filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px 2px 0px white)
-      drop-shadow(2px -2px 0px white) drop-shadow(-2px -2px 0px white);}
+      drop-shadow(2px -2px 0px white) drop-shadow(-2px -2px 0px white);} */
 
 .title, .sub-title, .title span {cursor: pointer;}
 
@@ -46,6 +46,16 @@ position: static;
 .title:hover span {display: inline-block; }
 
 .sub-title {font-family: neolithic; font-size: 2em; }
+
+.title  img {height: 100px;}
+.sub-title {font-family: neolithic; font-size: 2em; }
+
+.title {
+  filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px 2px 0px white)
+      drop-shadow(2px -2px 0px white) drop-shadow(-2px -2px 0px white)
+      drop-shadow(4px 4px 0px mediumseagreen) drop-shadow(-4px 4px 0px gold)
+  drop-shadow(4px -4px 0px orange) drop-shadow(-4px -4px 0px orangered)
+  ;}
 
 
 /* DRAWER CONTROLS */
