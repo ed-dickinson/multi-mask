@@ -23,7 +23,7 @@
       <div class='title'>
         <div>
         <!-- Mask Maker -->
-        <img src='assets/multimask-hori2x4.png' />
+        <img src='assets/multimask-2outline.png' />
       </div>
       <!-- <span class='title-info'>(info)</span> -->
     </div>
@@ -43,7 +43,7 @@
     <br><br>
     This is a friendly site where you can create a mask using the handy editor, and then add it to the wall of masks.
     <br /><br />
-    Log in or sign-up to keep track of your masks:
+    Log in or sign-up to keep track of your masks:<br /><br />
     <input class='email' placeholder='email' value='edward.ejd@gmail.com'/><input type='password' class='password' placeholder='password' value='jenny'/><br />
 
     <button class='log-in'>Log In</button> <button class='sign-up'>Sign Up</button> <button class='private'>Private</button>
@@ -118,7 +118,9 @@
 
     </div>
     <!-- <input name='result-colour' type='text-area' /> -->
-    <button name='mongo-save'>Save --></button><br />
+    <button name='mongo-save'>Save --></button>
+    <button name='update' disabled>Update</button>
+    <button name='delete' disabled>Delete</button><br />
 
   </div>
 
@@ -136,8 +138,7 @@
   <div class='mask-display'></div>
 
 <div id='admin'>
-  <button name='update' disabled>Update</button>
-  <button name='delete' disabled>Delete</button>
+
 </div>
 
 
@@ -162,6 +163,16 @@ function toggleControls(on) {
     if (controls.contains('shown')) {   controls.remove('shown'); }
   } else {
     controls.toggle('shown');
+  }
+  if (retreived_mask) {
+    console.log('loaded mask')
+    save_button.style.display = 'none';
+    update_button.style.display =  'inline-block';
+    delete_button.style.display =  'inline-block';
+  } else {
+    save_button.style.display = 'inline-block';
+    update_button.style.display =  'none';
+    delete_button.style.display =  'none';
   }
   // if (controls.contains('shown')) {info.remove('shown');}
 }

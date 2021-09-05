@@ -77,10 +77,13 @@ router.post('/login', async (req, res) => {
           const opts = {}
             opts.expiresIn = 120;  //token expires in 2min
             const secret = JWTsecret //normally stored in process.env.secret
+            // const admin = (user.admin);
             const token = jwt.sign({ email }, secret, opts);
             return res.status(200).json({
                 message: "Auth Passed",
-                token
+                token,
+                admin: user.admin,
+                user: user._id
             })
         }
       // if ()

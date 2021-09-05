@@ -1,5 +1,7 @@
 const directory = 'http://localhost:3000/';
 
+const save_button = document.querySelector('[name=mongo-save]');
+
 let created_mask = undefined;
 
 async function countMasks() {
@@ -18,6 +20,7 @@ async function fetchMasks() {
   // console.log(result);
   // return result;
   // console.log(JSON.stringify(result))
+  // displayed_masks = result;
   fillMasks(result, true); //true is randomise
 
 }
@@ -33,6 +36,7 @@ async function saveToDb(map, name) {
     // no: 2
     // joined: new Date()
   };
+  if (logged_in_user) {data.user = logged_in_user.id}
 
   fetch(directory + 'add', {
     method: 'POST', // or 'PUT'
@@ -100,4 +104,4 @@ function sendToMongo() {
 
 }
 
-document.querySelector('[name=mongo-save]').addEventListener('click', sendToMongo);
+save_button.addEventListener('click', sendToMongo);

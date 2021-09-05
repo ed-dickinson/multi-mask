@@ -31,7 +31,7 @@ let rows = Math.floor(window.innerHeight / maskSize[1]);
 
 // console.log(maskSize);
 
-let title_space = (across%2==1) ? 5 : 4;
+let title_space = (across%2==1) ? 5 : 6;
 for (let i=0; i< (rows*across); i++) {
   if (i == (across-title_space)/2) {i+= title_space;}
   let mask = document.createElement('span');
@@ -107,8 +107,14 @@ function fillMasks(mask_store, random) {
 
     mask_count = i + 1;
 
+    if (mask_in_store.user) {
+      displayArray[i].setAttribute('data-user', mask_in_store.user);
+    }
+
+    displayArray[i].setAttribute('value', mask_in_store._id);
+
     if (admin) {
-      displayArray[i].setAttribute('value', mask_in_store._id);
+
       // displayArray[i].addEventListener('click', () => {loadMask(mask_in_store,displayArray[i])});//admin
       displayArray[i].addEventListener('click', ()=> {loadMask(mask_in_store,displayArray[i])});//admin
       displayArray[i].style.cursor = 'pointer';

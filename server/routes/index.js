@@ -62,6 +62,7 @@ router.post('/add', function(req, res, next) {
     name: req.body.name,
     date: new Date(),
     map: req.body.map,
+    user: req.body.user,
   });
   mask.save(err => {
     if (err) return next(err)

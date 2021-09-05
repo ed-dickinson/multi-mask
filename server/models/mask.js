@@ -7,7 +7,8 @@ var Mask = new Schema({
   name: String,
   date: Date,
   map: [],
-  // author: {type: Schema.Types.ObjectId, ref: 'User'},
+  user: {type: Schema.Types.ObjectId, ref: 'User'}
+  
 });
 
 module.exports = mongoose.model('Mask', Mask );

@@ -1,4 +1,4 @@
-const admin = true;
+// const admin = true;
 
 const update_button =  document.querySelector('[name=update]');
 const delete_button =  document.querySelector('[name=delete]');
@@ -15,37 +15,42 @@ function updateMessage(message) {
 
 // gets passed mongo object and js dom initially
 function loadMask(mask, dom) {
+  retreived_mask = true;
+  console.log(mask.user)
+  console.log(logged_in_user.id)
+  if (mask.user === logged_in_user.id || logged_in_user.admin) {
   // let dom = event.srcElement.parentNode;
   // let maskID = dom.getAttribute('value');
 
-  mask.dom = dom;
+    mask.dom = dom;
 
-  // console.log(mask)
-  // let box = parseInt(document.querySelector('[name=result]').value);
-  clearAll();
-  let map = mask.map;
-  if(mask.dom.reloaded==true){
-    console.log(true);
-    map = dom.map;
+    // console.log(mask)
+    // let box = parseInt(document.querySelector('[name=result]').value);
+    clearAll();
+    let map = mask.map;
+    if(mask.dom.reloaded==true){
+      console.log(true);
+      map = dom.map;
+    }
+    // console.log(map)
+    map.forEach(cell => {
+      // console.log(cell)
+      // console.log(cellArray[cell[1]][cell[0]])
+      let currentCell = cellArray[cell[1]][cell[0]];
+      cellArray[cell[1]][cell[0]].style.backgroundColour = colours[cell[2]];
+      currentCell.classList.add('drawn');
+      currentCell.object.changeColour(cell[2]);
+      currentCell.object.c = cell[2];
+      currentCell.object.colour();
+
+    })
+
+    toggleControls('on');
+    document.querySelector('[name=name]').value = mask.name;
+    loaded_mask = mask;
+    update_button.disabled = false;
+    delete_button.disabled = false;
   }
-  // console.log(map)
-  map.forEach(cell => {
-    // console.log(cell)
-    // console.log(cellArray[cell[1]][cell[0]])
-    let currentCell = cellArray[cell[1]][cell[0]];
-    cellArray[cell[1]][cell[0]].style.backgroundColour = colours[cell[2]];
-    currentCell.classList.add('drawn');
-    currentCell.object.changeColour(cell[2]);
-    currentCell.object.c = cell[2];
-    currentCell.object.colour();
-
-  })
-
-  toggleControls('on');
-  document.querySelector('[name=name]').value = mask.name;
-  loaded_mask = mask;
-  update_button.disabled = false;
-  delete_button.disabled = false;
 }
 
 function gatherArray() {
@@ -67,6 +72,7 @@ function gatherArray() {
 }
 
 async function updateInDb(map, name) {
+  // if (loaded_mask._id === )
   let data = {
     map: map,
     name: name,

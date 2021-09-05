@@ -25,12 +25,23 @@ position: static;
 /* .title, .sub-title {
   filter: drop-shadow(2px 2px 0px mediumseagreen) drop-shadow(-2px 2px 0px gold)
   drop-shadow(2px -2px 0px orange) drop-shadow(-2px -2px 0px orangered);} */
-.sub-title {
+.sub-title:hover {height: 0; display: inline-block;
   filter: drop-shadow(2px 2px 0px aquamarine) drop-shadow(-2px 2px 0px limegreen)
     drop-shadow(2px -2px 0px mediumseagreen) drop-shadow(-2px -2px 0px gold);}
-.sub-title:hover {
+/* .sub-title {
   filter: drop-shadow(3px 3px 0px aquamarine) drop-shadow(-3px 3px 0px limegreen)
-        drop-shadow(3px -3px 0px mediumseagreen) drop-shadow(-3px -3px 0px gold);}
+        drop-shadow(3px -3px 0px mediumseagreen) drop-shadow(-3px -3px 0px gold);} */
+  /* .sub-title {
+    filter: drop-shadow(3px 3px 0px aquamarine) drop-shadow(3px 0px 0px aquamarine)
+    drop-shadow(-3px 3px 0px limegreen) drop-shadow(-0px 3px 0px limegreen)
+    drop-shadow(3px -3px 0px mediumseagreen) drop-shadow(3px -0px 0px mediumseagreen)
+    drop-shadow(-3px -3px 0px gold) drop-shadow(-0px -3px 0px gold);} */
+.sub-title {
+  filter: drop-shadow(3px 3px 0px aquamarine) drop-shadow(-3px 3px 0px limegreen)
+    drop-shadow(3px -3px 0px mediumseagreen) drop-shadow(-4px -4px 0px gold)
+    ;
+}
+
 
 .title:hover {
   filter: drop-shadow(3px 3px 0px mediumseagreen) drop-shadow(-3px 3px 0px gold)
@@ -48,14 +59,16 @@ position: static;
 .sub-title {font-family: neolithic; font-size: 2em; }
 
 .title  img {height: 100px;}
-.sub-title {font-family: neolithic; font-size: 2em; }
+.sub-title {font-family: neolithic; font-size: 2em; top: -50px; position: relative; filter:;}
 
-.title {
-  filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px 2px 0px white)
-      drop-shadow(2px -2px 0px white) drop-shadow(-2px -2px 0px white)
+.title { top: -10px; position: relative;
+  filter: invert(0)
+  /* drop-shadow(2px 2px 0px white) drop-shadow(-2px 2px 0px white)
+      drop-shadow(2px -2px 0px white) drop-shadow(-2px -2px 0px white) */
       drop-shadow(4px 4px 0px mediumseagreen) drop-shadow(-4px 4px 0px gold)
   drop-shadow(4px -4px 0px orange) drop-shadow(-4px -4px 0px orangered)
   ;}
+.title-container{height: 100px; }
 
 
 /* DRAWER CONTROLS */
@@ -83,6 +96,8 @@ position: static;
 .message-drawer {z-index:30; padding: 20px 60px;}
 
 .info-drawer {z-index: 30; margin-top: 50px;}
+
+.info-drawer input {vertical-align: bottom;}
 
 .message-drawer {margin: auto; width: 50%; top: 60px; text-align: center; transform: scaleY(0) translateX(-50%); left: 50%;}
 
@@ -144,6 +159,8 @@ button[name=name-input-button] > div {width: 10em; display: inline-block; text-a
 .name-input-inner {display: inline-block; height: 1em;  text-align: left; animation:cursor_blink 1s 0s step-end infinite; max-width: 10em; right: 0; overflow: hidden;}
 
 button[name=mongo-save] {left: 100%; position: relative; transform: translateX(-100%);}
+button[name=update] {display: none;}
+button[name=delete] {display: none;}
 
 /* @keyframes cursor_blink {
   0%, 100% {border-right: 2px solid white;}
@@ -153,7 +170,7 @@ button[name=mongo-save] {left: 100%; position: relative; transform: translateX(-
 input.name {width: 11em;}
 
 .mask-display {
-  position: absolute; top: 20px;
+  position: absolute; top: 50px;
   z-index: 1;
 }
 div.title-inner, .mask-drawer-controls {z-index: 2;}
@@ -190,7 +207,12 @@ div.title-inner, .mask-drawer-controls {z-index: 2;}
 
 .display-cell {position: absolute;}
 
+/* USER STUFF */
 
+.users-mask { cursor:pointer;
+}
+.users-mask::after, .users-mask::before {content: ''; position: absolute; display: block; top: -8px; right: -2px; background-color: orange; width: 5px; height: 15px;}
+.users-mask::after {transform: rotate(90deg);}
 
 /* ADMIN */
 

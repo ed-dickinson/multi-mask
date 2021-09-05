@@ -174,6 +174,20 @@ async function signup(email,password) {
   });
 }
 
+function highlightUsersMasks(userID) {
+  displayArray.forEach(mask=>{
+    if (mask.hasAttribute('data-user')) {
+      console.log(mask.getAttribute('data-user'), userID)
+      let mask_user = mask.getAttribute('data-user');
+      if (userID === mask_user) {
+        mask.classList.add('users-mask');
+
+      };
+    };
+
+  })
+}
+
 async function login(email,password) {
   let data = {
     email: email,
@@ -194,9 +208,17 @@ async function login(email,password) {
     if (response.ok) {
       // document.querySelector('[name=name]').value += ' added!';
       // updateMessage(name +' added!');
-      response.json().then(json => {token = json.token; console.log(token)});
+      response.json().then(json => {
+        token = json.token;
+        logged_in_user = {id : json.user, admin : json.admin};
+        console.log(token, logged_in_user);
+        highlightUsersMasks(json.user);
+        toggleInfo('off');
+        updateMessage('Logged in!');
+      });
     } else {
       // responseBox.innerHTML = response.statusText;
+      loginMessage('Wrong password, hombre.');
     }
     // return response.blob();
   })
