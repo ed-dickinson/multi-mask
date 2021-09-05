@@ -71,6 +71,8 @@ router.post('/add', function(req, res, next) {
   // return res.json({message:'mask created', mask});
 });
 
+// PROTECTED
+
 router.post('/masks/update/:id', function(req, res, next) {
   // let no = Mask.countDocuments();
   Mask.findByIdAndUpdate(req.params.id, {name:req.body.name,map:req.body.map}, function(err,result) {

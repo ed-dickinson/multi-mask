@@ -98,7 +98,7 @@ font-family: pixel;}
   margin-left: 10px; padding: 5px;
 }
 
-.control-buttons button, .control-buttons output, .colour-buttons, button.tool, .tool-buttons button, input.name {
+.control-buttons button, .control-buttons output, .colour-buttons, button.tool, .tool-buttons button, input.name, .info-drawer button:not(.close-info), .info-drawer input {
   font-family: pixel;
   border: 2px solid grey;
   padding: 4px; margin: 6px 6px;
@@ -124,7 +124,7 @@ button:hover {cursor: pointer;}
   padding: 4px; margin: 4px;
 }
 
-.control-buttons button:hover:not(.tool.selected), .close:hover, .button-tool.selected , .tool-buttons button:hover{
+.control-buttons button:hover:not(.tool.selected), .close:hover, .button-tool.selected , .tool-buttons button:hover, .info-drawer button:hover{
   filter: drop-shadow(3px 3px 0px grey) drop-shadow(-3px -3px 0px darkgrey)
   drop-shadow(-3px 3px 0px dimgrey) drop-shadow(3px -3px 0px lightgrey);
   opacity: 0.75;

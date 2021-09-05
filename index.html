@@ -37,19 +37,22 @@
       <output name='message' value='hello' >. . .</output>
     </div>
 
-  <div class='info-drawer'>
+  <div class='info-drawer shown'>
     Welcome to Mask Maker (2.0).
     <br><br>
     This is a friendly site where you can create a mask using the handy editor, and then add it to the wall of masks.
+    <br /><br />
+    Log in or sign-up to keep track of your masks:
+    <input class='email' placeholder='email' value='edward.ejd@gmail.com'/><input type='password' class='password' placeholder='password' value='jenny'/><br />
 
-    You can even add a message with it if you like (tbc).
+    <button class='log-in'>Log In</button> <button class='sign-up'>Sign Up</button> <button class='private'>Private</button>
 
     <button class='close close-info'>
       x
     </button>
   </div>
 
-<div class='mask-drawer-controls shown'>
+<div class='mask-drawer-controls'>
 
   <div class='mask-drawer'>
 
@@ -144,6 +147,7 @@
 
   <script src='api.js'></script>
   <script src='api-admin.js'></script>
+  <script src='api-auth.js'></script>
 
 <script>
 function toggleControls(on) {
