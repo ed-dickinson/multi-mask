@@ -12,6 +12,7 @@ let displayArray = [];
 let maskDisplay = document.querySelector('.mask-display');
 // let container_width = window.innerWidth;
 let container_width = document.querySelector('body').offsetWidth;
+let window_width = window.innerWidth;
 // let container_width = maskDisplay;
 // console.log(container_width);
 
@@ -31,6 +32,8 @@ let rows = Math.floor(window.innerHeight / maskSize[1]);
 
 // console.log(maskSize);
 
+
+
 let title_space = (across%2==1) ? 5 : 6;
 for (let i=0; i< (rows*across); i++) {
   if (i == (across-title_space)/2) {i+= title_space;}
@@ -40,11 +43,45 @@ for (let i=0; i< (rows*across); i++) {
   mask.style.left = maskSize[0]/0.9 * (i%across) + 'px';
   mask.style.height = maskSize[1] + 'px';
   mask.style.top = maskSize[1]*Math.floor(i/across)/0.93 + 'px';
-  // mask.style.margin = maskSize[0]/18 + 'px';
-  // mask.style.backgroundColor = 'papayawhip';
+
+
+
   displayArray.push(mask);
   maskDisplay.appendChild(mask);
 }
+// maskDisplay.style.width = (maskSize[0] * across) + 'px';
+maskDisplay.style.width = container_width - 15 + 'px'; // don't know why this is 15! -opera
+
+// function resizeRows() {
+//   console.log('...resizing')
+//   across = (container_width - (container_width % max_mask_size)) / max_mask_size;
+//   maskSize = [90,120];
+//   maskSize[0] = (container_width/across)*0.9;
+//   maskSize[1] = maskSize[0] / (3/4);
+//   rows = Math.floor(window.innerHeight / maskSize[1]);
+//   title_space = (across%2==1) ? 5 : 6;
+//   for (let i=0; i< (rows*across); i++) {
+//     if (i == (across-title_space)/2) {i+= title_space;}
+//     let mask = maskDisplay.children[i];
+//     if (mask==undefined) {mask = document.createElement('span');}
+//     // mask.classList.add('mask-in-display');
+//     mask.style.width = maskSize[0] + 'px';
+//     mask.style.left = maskSize[0]/0.9 * (i%across) + 'px';
+//     mask.style.height = maskSize[1] + 'px';
+//     mask.style.top = maskSize[1]*Math.floor(i/across)/0.93 + 'px';
+//   }
+// }
+
+// window.addEventListener("resize", () => {
+//   let new_window_width = window.innerWidth;
+//
+//   // if (window_width != new_window_width) {
+//   //   window_width = new_window_width;
+//   //   resizeRows();
+//   // }
+//
+//
+// });
 
 function mapToCells(map, display) {
   map.forEach(item => {

@@ -27,11 +27,14 @@ const Cell = (dom, x, y, c) => {//c is colour, d is last drawn colour, t is last
   const lastDrawnColour = (colourNo) => {
     d = colourNo;
   }
+  const getColour = () => {
+    return c;
+  }
   const colour = (current) => {
     if (current) {dom.style.backgroundColor = colours[current];} else {
     dom.style.backgroundColor = colours[c];}
   }
-  return {dom, x, y, c, d, colour, changeColour, lastDrawnColour};
+  return {dom, x, y, c, d, colour, changeColour, lastDrawnColour, getColour};
 }
 
 
@@ -111,8 +114,7 @@ function eraseCells(draw_array) {
 
 function swapCells(cellDom) {
   let old_colour = cellDom.object.c;
-  // console.log(cellDom.parentNode)
-  // cellDom.parentNode.addEventListener('mouseup', swapRelease);
+
   let new_colour = currentColourNo;
   document.querySelectorAll('.drawn').forEach(cell => {
     if (cell.object.c==old_colour) {
@@ -124,13 +126,107 @@ function swapCells(cellDom) {
 
 }
 
+function fillCells(cellDom) {
+  let old_colour = cellDom.object.c;
+
+  let new_colour = currentColourNo;
+
+  let filledArray = [cellDom];
+
+  let directions = [0,1,2,3];
+
+  function cellDirection(cellDom, dir) {
+    switch(dir) {
+      case 0:
+      x = cellDom.object.x;
+      y = cellDom.object.y + 1;
+      break;
+      case 1:
+      x = cellDom.object.x + 1;
+      y = cellDom.object.y;
+      break;
+      case 2:
+      x = cellDom.object.x;
+      y = cellDom.object.y - 1;
+      break;
+      case 3:
+      x = cellDom.object.x - 1;
+      y = cellDom.object.y;
+
+    }
+    if (x >= 0 && x < 21 && y >= 0 && y < 28) {
+      return cellArray[y][x];
+    } else {
+      return undefined;
+    }
+
+  }
+
+  function moveToCell(cellDom, dir) {
+    filledArray.push(cellDom);
+    switch(dir) {
+      case 0:
+      x = cellDom.object.x;
+      y = cellDom.object.y + 1;
+      break;
+    }
+    let new_directions = [];
+    switch(dir) {
+      case 0: new_directions = [1,0,3]; break;
+      case 1: new_directions = [0,2,1]; break;
+      case 2: new_directions = [2,1,3]; break;
+      case 3: new_directions = [0,3,2];
+    }
+
+
+    checkDirections(cellDom, new_directions);
+
+  }
+
+  function checkDirections(cellDom, directions) {
+    directions.forEach(direction => {
+
+      let new_cellDom = cellDirection(cellDom, direction);
+      if (new_cellDom != undefined) {
+      let new_cell_colour = new_cellDom.object.c;
+      // console.log(new_cellDom.object);
+      if (
+        // new_cellDom != undefined
+          // new_cellDom.object.c != new_colour
+          new_cell_colour == old_colour
+          && new_cell_colour != new_colour
+          // && !new_cellDom.classList.contains('drawn')
+          && filledArray.indexOf(new_cellDom)==-1) {
+            // console.log(new_cell_colour, new_colour)
+        moveToCell(new_cellDom, direction);
+      }
+    }
+    })
+  }
+
+  checkDirections(cellDom, directions);
+
+
+
+  filledArray.forEach(cell => {
+
+    cell.object.changeColour(new_colour);
+    cell.object.c = new_colour;
+    cell.object.colour();
+    cell.classList.add('drawn');
+
+  })
+
+}
+
 function click() {
   let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
   if (tool == 'erase') {
     let drawArray = expandCell(cellDom);
     eraseCells(drawArray);
   } else if (tool == 'swap') {
-    swapCells(cellDom);
+    // swapCells(cellDom);
+    fillCells(cellDom);
   } else {
     let drawArray = expandCell(cellDom);
     drawCells(drawArray);
@@ -407,27 +503,7 @@ function colourSelect() {
 }
 
 const colour_buttons = [];
-//
-// (function () {
-//   let skins = colours.slice(1,5);
-//   let greys = colours.slice(18);
-//   let multis = colours.slice(6,18);
-//
-//   colours_sorted = [colours[0]].concat(greys,colours[5],multis,skins);
-// })();
-// () => {
-  // let colours_sorted = colours;
 
-  // colours_new.slice()
-
-
-// }
-
-// console.log(colours_sorted);
-// let colours_sorted = colours[0].concat(colours.slice(5,15),colours.slice(15),);
-
-
-// colours_sorted = [colours[0],colours[18],colours]
 
 colours.forEach(colour => {
   let i = colours.indexOf(colour);

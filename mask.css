@@ -172,7 +172,7 @@ button[name=delete] {display: none;}
 input.name {width: 11em;}
 
 .mask-display {
-  position: absolute; top: 50px;
+  position: relative; top: 50px; margin: auto;
   z-index: 1;
 }
 div.title-inner, .mask-drawer-controls {z-index: 2;}
