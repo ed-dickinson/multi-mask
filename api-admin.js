@@ -5,7 +5,6 @@ const delete_button =  document.querySelector('[name=delete]');
 
 let loaded_mask = undefined;
 let retreived_mask = undefined;
-// let loaded_masks_dom = undefined;
 
 function updateMessage(message) {
   document.querySelector('[name=message]').value = message;
@@ -20,23 +19,19 @@ function loadMask(mask, dom) {
   console.log(mask.user)
   console.log(logged_in_user.id)
   if (mask.user === logged_in_user.id || logged_in_user.admin) {
-  // let dom = event.srcElement.parentNode;
-  // let maskID = dom.getAttribute('value');
+
 
     mask.dom = dom;
 
-    // console.log(mask)
-    // let box = parseInt(document.querySelector('[name=result]').value);
     clearAll();
     let map = mask.map;
     if(mask.dom.reloaded==true){
       console.log(true);
       map = dom.map;
     }
-    // console.log(map)
+
     map.forEach(cell => {
-      // console.log(cell)
-      // console.log(cellArray[cell[1]][cell[0]])
+
       let currentCell = cellArray[cell[1]][cell[0]];
       cellArray[cell[1]][cell[0]].style.backgroundColour = colours[cell[2]];
       currentCell.classList.add('drawn');
@@ -58,12 +53,7 @@ function gatherArray() {
 
 
   let array = [];
-  // document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
   document.querySelectorAll(".drawn, .template, .fill").forEach(cell => {
-
-    // if (typeof cell.object.c == 'undefined') {
-    //   cell.object.c = 0;
-    // }
 
     array.push([cell.object.x, cell.object.y, cell.object.c]);
 
@@ -73,7 +63,7 @@ function gatherArray() {
 }
 
 async function updateInDb(map, name) {
-  // if (loaded_mask._id === )
+
   let data = {
     map: map,
     name: name,
@@ -93,6 +83,8 @@ async function updateInDb(map, name) {
     console.log(response)
     if (response.ok) {
       updateMessage(name +' updated!');
+      updateInDom(map);
+      toggleControls('off');
     } else {
       updateMessage('Insufficient priviledges to update.');
     }
@@ -108,19 +100,17 @@ async function updateInDb(map, name) {
 
 function updateInDom(array) {
   loaded_mask.dom.innerHTML = '';
-  // displayArray.length;
+
   mapToCells(array, loaded_mask.dom);
   loaded_mask.dom.reloaded = true;
-  // loaded_mask.dom.removeEventListener('click', fu;
-  // loaded_mask;
+
 };
 
 function update() {
   let array = gatherArray();
   let name = document.querySelector('[name=name]').value;
   updateInDb(array, name);
-  updateInDom(array);
-  toggleControls('off');
+  // updateInDom(array);
 };
 
 async function deleteInDb(name) {
@@ -153,8 +143,6 @@ async function deleteInDb(name) {
 
 function deleteInDom() {
   loaded_mask.dom.innerHTML = '';
-  // displayArray.length;
-  // mapToCells(array, loaded_mask.dom);
 };
 
 function deleteMask(){
@@ -169,13 +157,3 @@ function deleteMask(){
 update_button.addEventListener('click', ()=>{update()});
 
 delete_button.addEventListener('click', ()=>{deleteMask()});
-
-// function addMaskLinks(){
-//   mask_store.forEach(mask_in_store => {
-//     // mask_in_store.dom.addEventListener('click', loadMask);
-//     // mask_in_store.dom.style.cursor = 'pointer';
-//     console.log(mask_in_store)
-//   })
-// }
-
-// addMaskLinks();

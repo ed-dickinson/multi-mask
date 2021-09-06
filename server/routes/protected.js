@@ -23,25 +23,7 @@ passport.use(jwtStrategy);
 
 
 router.post('/signup', async (req, res, next) => {
-  // const { email, password } = req.body;
-  //
-  // // authentication will take approximately 13 seconds
-  // // https://pthree.org/wp-content/uploads/2016/06/bcrypt.png
-  // const hashCost = 10;
-  //
-  // try {
-  //   const passwordHash = await bcrypt.hash(password, hashCost);
-  //   const userDocument = new User({ email, passwordHash });
-  //   await userDocument.save();
-  //
-  //   res.status(200).send({ email });
-  //
-  // } catch (error) {
-  //   res.status(400).send({
-  //     error: 'req body should take the form { email, password }',
-  //     details: [email, password]
-  //   });
-  // }
+
   bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
             if (err) return next(err)
             else {
@@ -64,7 +46,6 @@ router.post('/login', async (req, res) => {
 
     let user = await User.findOne({ email });
 
-    //This lookup would normally be done using a database
     if (user) {
         // bcrypt.compare.then((res)=>{
         //   if (res) { //the password compare would normally be done using bcrypt.
@@ -73,11 +54,10 @@ router.post('/login', async (req, res) => {
         // })
         const match = await bcrypt.compare(password, user.password);
 
-        if (match) { //the password compare would normally be done using bcrypt.
+        if (match) {
           const opts = {}
-            opts.expiresIn = 120;  //token expires in 2min
-            const secret = JWTsecret //normally stored in process.env.secret
-            // const admin = (user.admin);
+            opts.expiresIn = 1200;  //token expires in 20min
+            const secret = JWTsecret
             const token = jwt.sign({ email }, secret, opts);
             return res.status(200).json({
                 message: "Auth Passed",
@@ -86,9 +66,6 @@ router.post('/login', async (req, res) => {
                 user: user._id
             })
         }
-      // if ()
-
-
     }
     return res.status(401).json({ message: "Auth Failed" })
 

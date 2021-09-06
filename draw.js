@@ -106,11 +106,6 @@ function eraseCells(draw_array) {
   })
 }
 
-// function swapRelease() {
-//   console.log(event.target)
-//   let cellDom = (event.srcElement.classList.contains('cell')) ? event.srcElement : event.srcElement.parentNode;
-//   return cellDom.object.c;
-// }
 
 function swapCells(cellDom) {
   let old_colour = cellDom.object.c;
@@ -126,7 +121,7 @@ function swapCells(cellDom) {
 
 }
 
-//fill doesn't seem to be working on coloured stuff on loaded masks
+
 
 function fillCells(cellDom) {
   let old_colour = cellDom.object.c;
@@ -191,15 +186,11 @@ function fillCells(cellDom) {
       let new_cellDom = cellDirection(cellDom, direction);
       if (new_cellDom != undefined) {
       let new_cell_colour = new_cellDom.object.c;
-      // console.log(new_cellDom.object);
       if (
-        // new_cellDom != undefined
-          // new_cellDom.object.c != new_colour
+
           new_cell_colour == old_colour
           && new_cell_colour != new_colour
-          // && !new_cellDom.classList.contains('drawn')
           && filledArray.indexOf(new_cellDom)==-1) {
-            // console.log(new_cell_colour, new_colour)
         moveToCell(new_cellDom, direction);
       }
     }
@@ -227,7 +218,6 @@ function click() {
     let drawArray = expandCell(cellDom);
     eraseCells(drawArray);
   } else if (tool == 'swap') {
-    // swapCells(cellDom);
     fillCells(cellDom);
   } else {
     let drawArray = expandCell(cellDom);
@@ -245,7 +235,7 @@ for (let j = 0; j < y; j++) {
     cell.style.left = i * cell_size + 'em';
     cell.style.width = cell_size + 'em';
     cell.style.height = cell_size + 'em';
-    // if (Math.random()<0.25) {cell.classList.add('variation');}
+
     mask_drawer.appendChild(cell);
     let cellObject = Cell(cell, i, j);
     let drawReceiver = document.createElement('div');
@@ -256,136 +246,14 @@ for (let j = 0; j < y; j++) {
     cell.object = cellObject;
 
     cell.children[0].addEventListener('mouseover', hold);
-    // cell.children[0].addEventListener('mousedom', ()=>{return false;});
+
     cell.addEventListener('mousedown', click);
     drawReceiver.ondragstart = () => {return false}; //WOO REMOVES DRAG!
-    // cell.children[0].addEventListener('mousedown', clickDraw);
+
 
   }
   cellArray[j] = arrayRow;
 }
-
-function save() {
-  let result = document.querySelector('[name=result]');
-  let array = [];
-  result.value = '';
-  document.querySelectorAll('.drawn').forEach(cell => {
-    console.log(cell.object);
-    array.push({x:cell.object.x, y:cell.object.y});
-    result.value+= '[' + cell.object.x + ',' + cell.object.y + '],';//arr
-  })
-}
-
-function saveColour() {
-  let result = document.querySelector('[name=result]');
-  let array = [];
-  result.value = '';
-  document.querySelectorAll('.drawn').forEach(cell => {
-
-    if (typeof cell.object.c == 'undefined') { cell.object.c = 0; }
-console.log(cell.object.c);
-    array.push({x:cell.object.x, y:cell.object.y, c:cell.object.c});
-    result.value+= '[' + cell.object.x + ',' + cell.object.y + ',' + cell.object.c + '],';//arr
-  })
-
-}
-
-function saveAll() {
-  let result = document.querySelector('[name=result]');
-  let array = [];
-  result.value = '';
-  // document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
-  document.querySelectorAll(".drawn, .template, .fill").forEach(cell => {
-
-    if (typeof cell.object.c == 'undefined') {
-      cell.object.c = 0;
-    }
-    // console.log(cell.object.c);
-    array.push({x:cell.object.x, y:cell.object.y, c:cell.object.c});
-    result.value+= '[' + cell.object.x + ',' + cell.object.y + ',' + cell.object.c + '],';//arr
-  })
-
-}
-
-function saveAllMono() {
-  let result = document.querySelector('[name=result]');
-  let array = [];
-  result.value = '';
-  // document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
-  document.querySelectorAll(".drawn, .template, .fill").forEach(cell => {
-    console.log(cell.object);
-    array.push({x:cell.object.x, y:cell.object.y});
-    result.value+= '[' + cell.object.x + ',' + cell.object.y + '],';//arr
-  })
-
-}
-
-function fillFace() {
-  cellArray.forEach(row => {
-    //row
-    let onFaceLine = false;
-    let backOnFaceLine = false;
-    let insideFace = false;
-    let faceArray = [];
-
-    let outsideFace = true;
-    row.forEach(cell => {
-      if (cell.classList.contains('face-template')) {
-        faceArray.push(cell.object.x);
-      } else if (faceArray.length == 0) {
-        outsideFace = true;
-        cell.object.fill = false;
-      }
-      if (cell.object.x >= 21  - faceArray[0]) {
-        outsideFace = true;
-        cell.object.fill = false;
-      }
-    })
-
-    row.forEach(cell => {
-      let hasOtherTemplate = undefined;
-      Array.from(cell.classList).forEach(cl => {
-        if(cl.toString().includes('face-template')){
-          hasOtherTemplate = false;
-        } else if(cl.toString().includes('-template')) {
-          hasOtherTemplate = true;
-        }
-      });
-
-      if (cell.object.fill == false || cell.classList.contains('drawn') || hasOtherTemplate || cell.classList.contains('face-template')) {} else {
-        cell.classList.add('fill');
-        cell.object.changeColour(currentColourNo);
-        cell.object.c = currentColourNo;
-        cell.object.colour();
-
-        cell.object.lastDrawnColour(currentColourNo);
-        cell.object.d = currentColourNo;
-      }
-
-
-    })
-  })
-
-}
-
-function importSaved() {
-  let box = parseInt(document.querySelector('[name=result]').value);
-
-  let map = mask_store[box].map;
-  console.log(map)
-  map.forEach(cell => {
-    console.log(cell)
-    console.log(cellArray[cell[1]][cell[0]])
-    let currentCell = cellArray[cell[1]][cell[0]];
-    cellArray[cell[1]][cell[0]].style.backgroundColour = colours[cell[2]];
-    currentCell.classList.add('drawn');
-    currentCell.object.changeColour(cell[2]);
-    currentCell.object.c = cell[2];
-    currentCell.object.colour();
-
-  })
-}
-
 
 
 function clearDrawn() {
@@ -397,26 +265,14 @@ function clearDrawn() {
 
 function clearAll() {
   clearDrawn();
-  // features_array.forEach(feature => {
-  //   feature.clear();
-  // })
 }
 
-
-// function toolSizeDisplayUpdate(){document.querySelector('[name=tool-size-display').value=tool_size;}
-// document.querySelector('[name=tool-size-up]').addEventListener('click', ()=>{
-//   if (tool_size < 5) {tool_size++; toolSizeDisplayUpdate();}
-// });
-// document.querySelector('[name=tool-size-down]').addEventListener('click', ()=>{
-//   if (tool_size > 1) {tool_size--; toolSizeDisplayUpdate();}
-// });
 
 function toolSizeUpdate(){
 
   tool_buttons.forEach(button => {
     button.classList.remove('selected');
   })
-  // event.target.classList.add('selected');
   tool_buttons[tool_size-1].classList.add('selected');
 }
 let tool_buttons = document.querySelectorAll('[name=tool-size]');
@@ -493,11 +349,10 @@ let currentColour = 'black';
 
 
 function colourSelect() {
-  // console.log(Array.from(colourButtonCont.children).indexOf(event.target))
-  // event.target.classList.add('selected-colour');
+
   currentColourNo = Array.from(colourButtonCont.children).indexOf(event.target);
   currentColour = colours[currentColourNo];
-  // colourButtonCont.style.borderColor = currentColour;
+
   colour_buttons.forEach(button => {
     button.classList.remove('selected');
   })
@@ -517,9 +372,6 @@ colours.forEach(colour => {
   sub.addEventListener('click', colourSelect);
   colour_buttons.push(sub);
 
-  // if ((colours.indexOf(colour)+1) % 5 == 0) {
-  //   // colourButtonCont.innerHTML += '<br>';
-  // }
   colourButtonCont.style.width = (5 * sub.clientWidth) + (6*5) + 3 + 'px';
   colourButtonCont.style.height = (4 * sub.clientWidth) + (5*5) + 'px';
 
@@ -559,14 +411,7 @@ document.addEventListener("keyup", ()=>{holding_erase=false;});
 document.addEventListener("keydown", event => {
   if (event.isComposing || event.keyCode === 229) {
     return;
-  // } else if (inputting_name && (event.keyCode >= 48 && event.keyCode <=90)) {
-  //   name_input_inner.innerHTML += event.key;
-  // } else if (inputting_name && event.key == 'Backspace') {
-  //   name_input_inner.innerHTML = name_input_inner.innerHTML.substr(0,name_input_inner.innerHTML.length-1);
-  // } else if (inputting_name && event.code == 'Space') {
-  //   name_input_inner.innerHTML += '&nbsp';
-  // } else if (inputting_name && event.key == 'Enter') {
-  //   inputting_name = false;
+
   } else if (event.code == 'KeyE' || event.keyCode == 69) {
     eraseTool();
     holding_erase = true;
@@ -584,15 +429,3 @@ document.addEventListener("keydown", event => {
   }
 
 });
-
-// const name_input = document.querySelector('[name=name-input-button]');
-// const name_input_inner = document.querySelector('.name-input-inner');
-
-// let inputting_name = undefined;
-
-// name_input.addEventListener("click", () => {
-//   name_input.classList.add('selected');
-//   if (inputting_name == undefined) {name_input_inner.innerHTML = '';}
-
-//   inputting_name = true;
-// })

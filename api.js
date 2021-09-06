@@ -17,17 +17,14 @@ async function fetchMasks() {
   let path = 'masks/all';
   const response = await fetch(directory + path, {mode: 'cors'});
   const result = await response.json();
-  // console.log(result);
-  // return result;
-  // console.log(JSON.stringify(result))
-  // displayed_masks = result;
+
   fillMasks(result, true); //true is randomise
 
 }
 
 fetchMasks();
 
-// let fetched_mask_count = countMasks();
+
 
 async function saveToDb(map, name) {
   let data = {
@@ -47,10 +44,9 @@ async function saveToDb(map, name) {
     body: JSON.stringify(data),
   })
   .then(response => {
-    // response.json();
 
     if (response.ok) {
-      // document.querySelector('[name=name]').value += ' added!';
+
       updateMessage(name +' added!');
       response.json().then(json => {created_mask = json.mask;});
     } else {
@@ -70,7 +66,6 @@ async function saveToDb(map, name) {
 
 function addToDom(array) {
 
-  // loaded_mask.dom.innerHTML = '';
   let dom =  displayArray[mask_count];
   mapToCells(array, dom);
   dom.style.backgroundColor = 'white';
@@ -84,18 +79,15 @@ function sendToMongo() {
   let input = document.querySelector('[name=result]');
   let name = document.querySelector('[name=name]');
   let array = [];
-  // input.value = '';
-  // document.querySelectorAll(".drawn, [class$='-template']").forEach(cell => {
+
   document.querySelectorAll(".drawn, .template, .fill").forEach(cell => {
 
     if (typeof cell.object.c == 'undefined') {
       cell.object.c = 0;
     }
-    console.log(cell.object)
-    // console.log(cell.object.c);
-    // array.push({x:cell.object.x, y:cell.object.y, c:cell.object.c});
+
     array.push([cell.object.x, cell.object.y, cell.object.c]);
-    // input.value+= '[' + cell.object.x + ',' + cell.object.y + ',' + cell.object.c + '],';//arr
+
   })
 
   saveToDb(array, name.value);

@@ -121,7 +121,7 @@ async function getEmails() {
 
 // getEmails();
 function checkEmail() {
-  // console.log(event.target.value, emails.indexOf(event.target.value))
+
   let regex = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
   if (emails.includes(email_input.value)) {
     loginMessage("Email recognised! Log in.")
