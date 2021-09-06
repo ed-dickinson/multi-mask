@@ -14,12 +14,10 @@ function updateMessage(message) {
 }
 
 // gets passed mongo object and js dom initially
-function loadMask(mask, dom) {
+function loadMask(mask, dom) { //LOAD MASK INTO EDITOR
   retreived_mask = true;
-  console.log(mask.user)
-  console.log(logged_in_user.id)
-  if (mask.user === logged_in_user.id || logged_in_user.admin) {
 
+  if (mask.user === logged_in_user.id || logged_in_user.admin) {
 
     mask.dom = dom;
 
@@ -83,7 +81,7 @@ async function updateInDb(map, name) {
     console.log(response)
     if (response.ok) {
       updateMessage(name +' updated!');
-      updateInDom(map);
+      updateInDom(map, name);
       toggleControls('off');
     } else {
       updateMessage('Insufficient priviledges to update.');
@@ -98,8 +96,9 @@ async function updateInDb(map, name) {
   });
 }
 
-function updateInDom(array) {
+function updateInDom(array, name) {
   loaded_mask.dom.innerHTML = '';
+  loaded_mask.name = name;
 
   mapToCells(array, loaded_mask.dom);
   loaded_mask.dom.reloaded = true;

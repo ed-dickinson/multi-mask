@@ -59,7 +59,7 @@ position: static;
 .sub-title {font-family: neolithic; font-size: 2em; }
 
 .title  img {height: 100px;}
-.sub-title {font-family: neolithic; font-size: 2em; top: -50px; position: relative; filter:;}
+.sub-title {font-family: neolithic; font-size: 2em; top: -30px; position: relative; filter:;}
 
 .title { top: -10px; position: relative;
   filter: invert(0)
@@ -123,13 +123,16 @@ font-family: pixel;}
   margin-left: 10px; padding: 5px;
 }
 
-.control-buttons button, .control-buttons output, .colour-buttons, button.tool, .tool-buttons button, input.name, .info-drawer button:not(.close-info), .info-drawer input {
+.control-buttons button, .control-buttons output, .colour-buttons, button.tool, .tool-buttons button, input.name, .info-drawer button:not(.close-info), .info-drawer input, #logged-in {
   font-family: pixel;
   border: 2px solid grey;
   padding: 4px; margin: 6px 6px;
   filter: drop-shadow(2px 2px 0px grey) drop-shadow(-2px -2px 0px darkgrey) drop-shadow(-2px 2px 0px dimgrey) drop-shadow(2px -2px 0px lightgrey);
 
 }
+
+#logged-in {background-color: white; font-size: 12px; position: absolute; top: 5px; right: 5px; }
+#logged-in.hidden {display: none;}
 
 .tool-buttons button {margin: 8px 2px;}
 
@@ -164,10 +167,6 @@ button[name=mongo-save] {left: 100%; position: relative; transform: translateX(-
 button[name=update] {display: none;}
 button[name=delete] {display: none;}
 
-/* @keyframes cursor_blink {
-  0%, 100% {border-right: 2px solid white;}
-  50% {border-right: 2px solid transparent;}
-} */
 
 input.name {width: 11em;}
 
@@ -203,8 +202,7 @@ div.title-inner, .mask-drawer-controls {z-index: 2;}
 .cell-draw-receiver{border-radius: 0%; width: 70.71%; height:70.71%; background-color: white; opacity: 0; position: absolute;  left: 14.64%; top: 14.64%; transform: rotate(45deg);}
 
 .mask-in-display {
-  background-color: sienna;
-  background-color: papayawhip;
+  /* background-color: papayawhip; */
   display: inline-block; position: absolute; }
 
 .display-cell {position: absolute;}

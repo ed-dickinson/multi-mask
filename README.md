@@ -1,4 +1,7 @@
+# MULTI MASK
 
-fix reloaded name update
+A mask editor and sharer.
 
-add logged in info at top right or something?
+The editor was built with vanilla Javascript.
+
+The backend api is served by an node.js & express framework.

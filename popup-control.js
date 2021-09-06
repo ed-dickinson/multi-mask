@@ -63,3 +63,11 @@ document.querySelector('.title').addEventListener('click', () => {
   }
 
 })
+
+function toggleLoggedInMessage(on) {
+  let logged_in_tag = document.querySelector('#logged-in');
+  if (on == 'on') {
+    logged_in_tag.classList.remove('hidden');
+    setTimeout(() => {logged_in_tag.classList.add('hidden')},6000000); //10min same as auth token
+  }
+};

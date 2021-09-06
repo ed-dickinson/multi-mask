@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
 
         if (match) {
           const opts = {}
-            opts.expiresIn = 1200;  //token expires in 20min
+            opts.expiresIn = 600;  //token expires in 10min
             const secret = JWTsecret
             const token = jwt.sign({ email }, secret, opts);
             return res.status(200).json({

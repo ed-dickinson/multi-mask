@@ -65,7 +65,7 @@ async function saveToDb(map, name) {
 }
 
 function addToDom(array) {
-
+  console.log(1212)
   let dom =  displayArray[mask_count];
   mapToCells(array, dom);
   dom.style.backgroundColor = 'white';

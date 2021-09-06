@@ -215,6 +215,7 @@ async function login(email,password) {
         highlightUsersMasks(json.user);
         toggleInfo('off');
         updateMessage('Logged in!');
+        toggleLoggedInMessage('on');
       });
     } else {
       // responseBox.innerHTML = response.statusText;
