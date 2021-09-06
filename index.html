@@ -39,7 +39,8 @@
     </div>
 
   <div class='info-drawer'>
-    Welcome to Mask Maker (2.0).
+    <br />
+    Welcome to Multi Mask.
     <br><br>
     This is a friendly site where you can create a mask using the handy editor, and then add it to the wall of masks.
     <br /><br />
@@ -143,7 +144,7 @@
 
 
 
-  <script src='features.js'></script>
+  <!-- <script src='features.js'></script> -->
   <script src='draw.js'></script>
 
   <!-- <script src='mask-store.js'></script> -->
@@ -153,77 +154,10 @@
   <script src='api.js'></script>
   <script src='api-admin.js'></script>
   <script src='api-auth.js'></script>
+  <script src='popup-control.js'></script>
 
 <script>
-function toggleControls(on) {
 
-  if (on == 'on') {
-    if (!controls.contains('shown')) {  controls.add('shown');    }
-  } else if (on == 'off') {
-    if (controls.contains('shown')) {   controls.remove('shown'); }
-  } else {
-    controls.toggle('shown');
-  }
-  if (retreived_mask) {
-    save_button.style.display = 'none';
-    update_button.style.display =  'inline-block';
-    delete_button.style.display =  'inline-block';
-  } else {
-    save_button.style.display = 'inline-block';
-    update_button.style.display =  'none';
-    delete_button.style.display =  'none';
-  }
-  // if (controls.contains('shown')) {info.remove('shown');}
-}
-
-let controls = document.querySelector('.mask-drawer-controls').classList;
-let info = document.querySelector('.info-drawer').classList;
-
-function toggleInfo(on) {
-
-  // if (controls.contains('shown')) {
-  //   controls.remove('shown');
-  // }
-  if (on == 'on') {
-    if (!info.contains('shown')) {  info.add('shown');    }
-  } else if (on == 'off') {
-    if (info.contains('shown')) {   info.remove('shown'); }
-  } else {
-    info.toggle('shown');
-  }
-
-
-}
-
-document.querySelector('.sub-title').addEventListener('click', () => {
-  if (info.contains('shown')) {
-    toggleInfo('off');
-    setTimeout(function(){  toggleControls('on');}, 200);
-  } else {
-    toggleControls();
-  }
-
-})
-
-document.querySelector('.close-controls').addEventListener('click', () => {
-  toggleControls('off');
-
-})
-
-document.querySelector('.close-info').addEventListener('click', () => {
-  toggleInfo('off');
-
-})
-
-document.querySelector('.title').addEventListener('click', () => {
-  if (controls.contains('shown')) {
-    toggleControls('off');
-    setTimeout(function(){  toggleInfo('on');}, 200);
-  } else {
-    toggleInfo();
-  }
-
-})
 
 </script>
 

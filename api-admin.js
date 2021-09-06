@@ -4,6 +4,7 @@ const update_button =  document.querySelector('[name=update]');
 const delete_button =  document.querySelector('[name=delete]');
 
 let loaded_mask = undefined;
+let retreived_mask = undefined;
 // let loaded_masks_dom = undefined;
 
 function updateMessage(message) {

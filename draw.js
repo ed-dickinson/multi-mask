@@ -126,6 +126,8 @@ function swapCells(cellDom) {
 
 }
 
+//fill doesn't seem to be working on coloured stuff on loaded masks
+
 function fillCells(cellDom) {
   let old_colour = cellDom.object.c;
 
@@ -525,8 +527,8 @@ colours.forEach(colour => {
   let xy = [];
   switch(i) {//greys
     case 0: xy = [0,3]; break;
-    case 18: xy = [0,2]; break;
-    case 19: xy = [0,1]; break;
+    case 18: xy = [0,1]; break;
+    case 19: xy = [0,2]; break;
     case 5: xy = [0,0]; break;
     default:
   }
