@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "serverstart": "DEBUG=server:* npm run devstart"
+    "serverstart": "DEBUG=mask-maker:* npm run devstart"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
