@@ -6,8 +6,8 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config()
 const JWTsecret = process.env.JWT_SECRET;
 // const auth = require('../auth')
-User = require('../models/User');
-Mask = require('../models/Mask');
+User = require('../models/user');
+Mask = require('../models/mask');
 //@route    GET api/auth
 //@desc     Get logged in user
 //@access   Private
