@@ -91,7 +91,7 @@ function fillMasks(mask_store, random) {
 
       // displayArray[i].addEventListener('click', () => {loadMask(mask_in_store,displayArray[i])});//admin
       displayArray[i].addEventListener('click', ()=> {loadMask(mask_in_store,displayArray[i])});//admin
-      displayArray[i].style.cursor = 'pointer';
+      // displayArray[i].style.cursor = 'pointer';
     }
   })
 }

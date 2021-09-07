@@ -62,9 +62,7 @@ position: static;
 .sub-title {font-family: neolithic; font-size: 2em; top: -30px; position: relative; filter:;}
 
 .title { top: -10px; position: relative;
-  filter: invert(0)
-  /* drop-shadow(2px 2px 0px white) drop-shadow(-2px 2px 0px white)
-      drop-shadow(2px -2px 0px white) drop-shadow(-2px -2px 0px white) */
+  filter:
       drop-shadow(4px 4px 0px mediumseagreen) drop-shadow(-4px 4px 0px gold)
   drop-shadow(4px -4px 0px orange) drop-shadow(-4px -4px 0px orangered)
   ;}

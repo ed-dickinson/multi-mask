@@ -17,6 +17,8 @@ function updateMessage(message) {
 function loadMask(mask, dom) { //LOAD MASK INTO EDITOR
   retreived_mask = true;
 
+  if (logged_in_user == undefined) {return;}
+
   if (mask.user === logged_in_user.id || logged_in_user.admin) {
 
     mask.dom = dom;

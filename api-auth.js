@@ -1,5 +1,5 @@
 // const directory = 'http://localhost:3000/';
-
+let logged_in_user = undefined;
 const email_input = document.querySelector('input.email');
 const password_input = document.querySelector('input.password');
 const login_button = document.querySelector('button.log-in');
@@ -12,11 +12,21 @@ function loginMessage(phrase) {
   login_message.value = phrase;
 }
 
-private.addEventListener('click', get);
 login_button.addEventListener('click', () => {
+  if (email_input.value.length < 5) {
+    loginMessage('Not sure about that one.')
+    return;
+  }
   login(email_input.value, password_input.value)
 });
 signup_button.addEventListener('click', () => {
+  if (email_input.value.length < 5) {
+    loginMessage('Not sure about that one.')
+    return;
+  } else if (password_input.value.length < 5) {
+    loginMessage('Longer password, please.')
+    return;
+  }
   signup(email_input.value, password_input.value)
 });
 
@@ -177,7 +187,7 @@ async function signup(email,password) {
 function highlightUsersMasks(userID) {
   displayArray.forEach(mask=>{
     if (mask.hasAttribute('data-user')) {
-      console.log(mask.getAttribute('data-user'), userID)
+
       let mask_user = mask.getAttribute('data-user');
       if (userID === mask_user) {
         mask.classList.add('users-mask');
@@ -204,19 +214,21 @@ async function login(email,password) {
   })
   .then(response => {
     // response.json();
-    console.log(response)
+
     if (response.ok) {
       // document.querySelector('[name=name]').value += ' added!';
       // updateMessage(name +' added!');
       response.json().then(json => {
         token = json.token;
         logged_in_user = {id : json.user, admin : json.admin};
-        console.log(token, logged_in_user);
+  
         highlightUsersMasks(json.user);
         toggleInfo('off');
         updateMessage('Logged in!');
         toggleLoggedInMessage('on');
+
       });
+      localStorage.setItem("email", email);
     } else {
       // responseBox.innerHTML = response.statusText;
       loginMessage('Wrong password, hombre.');
@@ -230,3 +242,7 @@ async function login(email,password) {
     console.error('Error:', error);
   });
 }
+
+if (localStorage.getItem("email")) {
+  email_input.value = localStorage.getItem("email");
+};
